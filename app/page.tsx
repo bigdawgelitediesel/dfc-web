@@ -1,66 +1,123 @@
-const STATS = [
+import RepFinder from "./components/RepFinder";
+
+const WHITE_PAPER_URL =
+  "https://docs.google.com/document/u/0/d/19uFDcfguCnQX5ERSFsZp0_eCygRuYk06YojRwG72TG4/mobilebasic";
+
+const SUPPLY_STATS = [
   {
-    value: "$30,000+",
-    label: "Compliance Tax",
-    desc: "Added to every new 2027 Class 8 truck for federally mandated emissions hardware. Industry consensus. EPA's own estimate is 4x–6x lower.",
-    source: "ACT Research, Overdrive, Fleet Owner",
+    value: "72.7%",
+    label: "Of American Freight",
+    desc: "Share of U.S. freight tonnage moved by trucks. Every link in the supply chain ends with a diesel engine.",
+    source: "American Trucking Associations, 2024",
   },
   {
-    value: "$42,800",
-    label: "Lifetime Repairs",
-    desc: "Worst-case out-of-pocket to replace the aftertreatment stack at a dealer. DPF, DOC, SCR, DEF system, NOx, EGR, 7th injector. Parts plus install.",
-    source: "Dealer OEM pricing, 2026-04-23",
+    value: "14M+",
+    label: "Class 8 & Medium Trucks",
+    desc: "Heavy and medium-duty diesel trucks registered in America. The circulatory system of the U.S. economy.",
+    source: "FHWA Vehicle Registration Data, 2024",
   },
   {
-    value: "$25,000",
-    label: "Per Year, Per Truck",
-    desc: "What the average owner-operator pays out of pocket each year for emissions-driven downtime, DEF fluid, regen fuel burn, and parts replacement.",
-    source: "ATRI 2024 + dealer data",
-  },
-  {
-    value: "650 LBS",
-    label: "Dead Weight",
-    desc: "Every Class 8 hauls this in emissions hardware. Aftertreatment box, DEF tank, urea, doser, sensors, heated lines. Weight you cannot bill for.",
-    source: "SAE, OEM spec sheets",
-  },
-  {
-    value: "4–8%",
-    label: "MPG Penalty",
-    desc: "Fuel economy lost to DEF injection, active regens, and exhaust backpressure. At 120,000 miles a year, that is 600+ gallons a truck never needed to burn.",
-    source: "Integer Research, NACFE",
-  },
-  {
-    value: "125M",
-    label: "Gallons of DEF",
-    desc: "Poured into American trucks every year. Manufactured from natural gas reformed into ammonia, then converted to urea, then shipped in plastic jugs.",
-    source: "Integer Research 2024",
+    value: "30M+",
+    label: "Diesel Powered Assets",
+    desc: "Tractors, combines, generators, locomotives, school buses, and trucks. America runs on diesel, full stop.",
+    source: "Diesel Technology Forum, 2024",
   },
 ];
 
-const MANDATE = [
-  { num: "1", part: "DPF", name: "Diesel Particulate Filter", cost: "$11,000+", note: "Plugs with soot. Fails on regen cycles. Cordierite or silicon carbide monolith." },
-  { num: "2", part: "DOC", name: "Diesel Oxidation Catalyst", cost: "$4,500+", note: "Platinum and palladium. Priced off the mine, not the market." },
-  { num: "3", part: "SCR", name: "Selective Catalytic Reduction", cost: "$9,000+", note: "Vanadium or copper-zeolite. Needs DEF to function. Fails from contamination." },
-  { num: "4", part: "DEF", name: "Diesel Exhaust Fluid System", cost: "$7,500+", note: "Pump, heated tank, lines, doser. Freezes at 12°F. Crystallizes in the summer." },
-  { num: "5", part: "NOx", name: "Nitrogen Oxide Sensors (pair)", cost: "$2,500+", note: "$1,100 each at OEM. Known failure mode. Kicks truck into limp mode." },
-  { num: "6", part: "EGR", name: "Exhaust Gas Recirculation", cost: "$6,500+", note: "Cooler and valve. Soot-clogged from day one. 9 to 11 hours of dealer labor." },
-  { num: "7", part: "HC", name: "7th Injector / Hydrocarbon Doser", cost: "$1,800+", note: "Dumps raw fuel into the exhaust to force regens. Only exists because of regulation." },
-  { num: "8", part: "LBR", name: "Dealer Shop Labor (full cycle)", cost: "$19,000+", note: "69.5 hours at $275/hr metro dealer rate. Before parts." },
+const MANDATE_PARTS = [
+  { part: "DPF", name: "Diesel Particulate Filter", cost: "$11,000+" },
+  { part: "DOC", name: "Diesel Oxidation Catalyst", cost: "$4,500+" },
+  { part: "SCR", name: "Selective Catalytic Reduction", cost: "$9,000+" },
+  { part: "DEF", name: "Diesel Exhaust Fluid System", cost: "$7,500+" },
+  { part: "NOx", name: "Nitrogen Oxide Sensors (pair)", cost: "$2,500+" },
+  { part: "EGR", name: "Exhaust Gas Recirculation", cost: "$6,500+" },
+  { part: "HC", name: "7th Injector / Hydrocarbon Doser", cost: "$1,800+" },
+  { part: "LBR", name: "Dealer Shop Labor (full cycle)", cost: "$19,000+" },
+];
+
+const PLASTIC_STATS = [
+  { value: "125M", label: "DEF Jugs Per Year", source: "Integer Research 2024" },
+  { value: "47K", label: "Tons of Plastic", source: "EPA Plastic Waste Data" },
+  { value: "85K", label: "Tons of CO2 from Production", source: "EIA Urea Life-Cycle" },
+  { value: "90%", label: "Landfilled, Not Recycled", source: "NAPCOR Recovery Report" },
 ];
 
 const TIMELINE = [
-  { year: "1983", title: "Troy starts in the trade", desc: "Decades of Caterpillar background. Time inside the company and years with their engineering teams." },
-  { year: "1996", title: "Elite Diesel Service founded", desc: "Troy opens the shop out of a pickup in Dubois, Wyoming. Mobile repair for ranchers, loggers, and owner-operators." },
-  { year: "2022", title: "Cheyenne shop opens", desc: "Elite Diesel plants its flag in Cheyenne after stops in Elko and Windsor. Full-service heavy diesel for the mountain west." },
-  { year: "2024", title: "Federal prosecution", desc: "Troy is charged under the Clean Air Act for conspiracy to disable emissions controls on commercial trucks. Work done for customers who asked for it." },
-  { year: "2025", title: "Full presidential pardon", desc: "November 7, 2025. President Trump grants Troy a full and unconditional pardon. Civil rights restored." },
-  { year: "2026", title: "The shop is pardoned", desc: "February 12, 2026. Elite Diesel Service itself is pardoned. Rare second action for the company. Troy becomes a national voice for diesel reform." },
+  {
+    year: "1983",
+    title: "Troy Starts in the Trade",
+    desc: "Years inside Caterpillar. Time with their engineering teams. A foundation built on big iron and harder customers.",
+  },
+  {
+    year: "1996",
+    title: "Elite Diesel Service Founded",
+    desc: "Opens the shop out of a pickup in Dubois, Wyoming. Mobile repair for ranchers, loggers, and owner-operators.",
+  },
+  {
+    year: "2022",
+    title: "Cheyenne Shop Opens",
+    desc: "Elite Diesel plants its flag in Cheyenne after stops in Elko and Windsor. Full-service heavy diesel for the mountain west.",
+  },
+  {
+    year: "2024",
+    title: "Federal Prosecution",
+    desc: "Charged under the Clean Air Act for conspiracy to disable emissions controls. Work done for customers who asked for it.",
+  },
+  {
+    year: "Nov 2025",
+    title: "Full Presidential Pardon",
+    desc: "November 7, 2025. President Trump grants Troy a full and unconditional pardon. Civil rights restored.",
+  },
+  {
+    year: "Feb 2026",
+    title: "The Shop Is Pardoned",
+    desc: "February 12, 2026. Elite Diesel Service itself is pardoned. Rare second action for the company. Troy becomes a national voice for diesel reform.",
+  },
+];
+
+const EPA_ACTIONS = [
+  {
+    num: "1",
+    timing: "30 Days",
+    title: "National Enforcement Discretion Guidance",
+    desc: "Direct EPA field offices to exercise discretion on emissions tampering enforcement for existing diesel engines during the transition. Stop the raids. Stop the prosecutions.",
+  },
+  {
+    num: "2",
+    timing: "90 Days",
+    title: "Interim Performance-Based Standards",
+    desc: "Set clear health-based limits at or below pre-2012 levels. Approximately 2.4 g/bhp-hr NMHC plus NOx and 0.10 g/bhp-hr PM, measured via PEMS in real-world operation. Let the market decide how to hit the targets. Stop using California ARB as a national benchmark.",
+  },
+  {
+    num: "3",
+    timing: "6 Months",
+    title: "Joint Industry-Government Working Group",
+    desc: "Mechanics, fleet operators, owner-operators, and manufacturers at the table with EPA. Finalize long-term targets with the people who actually turn wrenches.",
+  },
+  {
+    num: "4",
+    timing: "Codify",
+    title: "Approve Delete Kits and Tunes",
+    desc: "Legalize modifications that meet performance-based pollution standards. End the black-market economy created by mandated failure-prone hardware.",
+  },
+  {
+    num: "5",
+    timing: "SBA List",
+    title: "Aftertreatment Relief for Small Businesses",
+    desc: "Fast-track the reform already identified on the SBA list. The coalition projects $195 to $200 billion a year in direct small-business savings.",
+  },
+  {
+    num: "6",
+    timing: "Permanent",
+    title: "Mandate Well-to-Wheel Reporting",
+    desc: "Require EPA to publish comprehensive environmental data across the full lifecycle. Measure what is really burned, shipped, and buried. Not just the tailpipe.",
+  },
 ];
 
 export default function HomePage() {
   return (
     <>
-      {/* =========== TOP BANNER =========== */}
+      {/* =========== TOP STAR BAND =========== */}
       <div className="footer-star-band">
         <span>★</span>
         <span>We Provide America</span>
@@ -95,6 +152,9 @@ export default function HomePage() {
             className="flex items-center gap-6 font-stencil"
             style={{ fontSize: "0.82rem", letterSpacing: "0.18em" }}
           >
+            <a href="#supply" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
+              Supply Chain
+            </a>
             <a href="#mandate" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
               The Mandate
             </a>
@@ -118,7 +178,7 @@ export default function HomePage() {
       {/* =========== HERO =========== */}
       <section className="hero-dfc" id="top">
         <div className="container relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
+          <div className="max-w-6xl mx-auto text-center">
             <div className="stars-divider mb-8">★ ★ ★</div>
 
             <p
@@ -146,29 +206,49 @@ export default function HomePage() {
               <br className="hidden md:inline" /> barrel, and bushel moves on American diesel.
             </p>
 
+            {/* POSTER BOOKEND: 01 produces / 02 stops */}
+            <div
+              className="grid sm:grid-cols-2 gap-6 mx-auto my-12"
+              style={{ maxWidth: "1050px" }}
+            >
+              <figure className="poster-frame">
+                <img
+                  src="/posters/01-america-produces.png"
+                  alt="America Produces. Diesel moves it all. U.S. map with industries linked by diesel supply chain."
+                  loading="eager"
+                />
+              </figure>
+              <figure className="poster-frame">
+                <img
+                  src="/posters/02-america-stops.png"
+                  alt="America Stops. Without diesel, nothing moves. Empty U.S. map with industry icons darkened."
+                  loading="eager"
+                />
+              </figure>
+            </div>
+
             <p
               className="mx-auto mb-12"
               style={{
-                maxWidth: "46rem",
+                maxWidth: "48rem",
                 fontSize: "1.15rem",
                 lineHeight: 1.6,
                 color: "var(--dfc-cream)",
-                opacity: 0.85,
+                opacity: 0.88,
               }}
             >
               Washington loaded our trucks with $30,000 of federally mandated hardware, 650 pounds of dead weight, and a lifetime of repair bills. The owner-operators, farmers, and fleets paying for it built this country. It is time to push back.
             </p>
 
-            <div className="stars-divider mb-10" style={{ maxWidth: "360px", margin: "0 auto 2.5rem" }}>
-              ★ ★ ★
-            </div>
-
             <div className="flex flex-wrap gap-4 justify-center">
-              <a href="#act" className="btn-gold">
-                ★ Take Action
+              <a href="#petition-form" className="btn-gold">
+                ★ Sign The Petition
               </a>
-              <a href="#bill" className="btn-outline-cream">
-                Read H.R. 8079
+              <a href="#rep-finder" className="btn-oxblood">
+                ★ Contact Your Rep
+              </a>
+              <a href="#donate-form" className="btn-outline-cream">
+                Donate
               </a>
             </div>
           </div>
@@ -182,41 +262,84 @@ export default function HomePage() {
             className="font-stencil"
             style={{
               fontSize: "clamp(1rem, 2vw, 1.5rem)",
-              letterSpacing: "0.25em",
+              letterSpacing: "0.22em",
               margin: 0,
             }}
           >
-            ★ American Diesel Feeds, Builds, and Moves America ★
+            ★ 72.7% of American Freight. One Fuel. One Mandate. One Bill. ★
           </p>
         </div>
       </div>
 
-      {/* =========== STATS GRID =========== */}
-      <section className="section section-cream">
+      {/* =========== SUPPLY CHAINS =========== */}
+      <section className="section section-cream" id="supply">
         <div className="container">
           <div className="text-center mb-14">
-            <span className="section-eyebrow mb-6 inline-flex">The Bill Comes Due</span>
+            <span className="section-eyebrow mb-6 inline-flex">Every Link In The Chain</span>
             <h2 className="section-title mt-6">
-              The True Cost of
+              Every Step Runs
               <br />
-              <span style={{ color: "var(--dfc-oxblood)" }}>EPA Compliance.</span>
+              <span style={{ color: "var(--dfc-oxblood)" }}>On Diesel.</span>
             </h2>
             <p
               className="mx-auto mt-6"
               style={{
-                maxWidth: "48rem",
+                maxWidth: "52rem",
                 fontSize: "1.1rem",
                 lineHeight: 1.6,
                 color: "var(--dfc-navy)",
-                opacity: 0.8,
+                opacity: 0.82,
               }}
             >
-              Every figure below comes from dealer quotes, OEM sources, or published research. This is what American truckers actually pay. Not what the EPA claims.
+              Field to fridge. Well to pump. The food on your table and the fuel in your tank both get there the same way. An American diesel engine moves them, every single link of the chain.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {STATS.map((s) => (
+          <div className="poster-split poster-split-2col mb-14">
+            <figure className="poster-frame">
+              <img
+                src="/posters/03-field-to-fridge.png"
+                alt="Field to Fridge: milk supply chain from dairy farm to grocery store, every step powered by diesel."
+                loading="lazy"
+              />
+              <figcaption
+                className="font-stencil"
+                style={{
+                  background: "var(--dfc-navy)",
+                  color: "var(--dfc-cream)",
+                  padding: "0.75rem 1rem",
+                  fontSize: "0.78rem",
+                  letterSpacing: "0.18em",
+                  textAlign: "center",
+                }}
+              >
+                Field to Fridge
+              </figcaption>
+            </figure>
+            <figure className="poster-frame">
+              <img
+                src="/posters/04-well-to-pump.png"
+                alt="Well to Pump: fuel supply chain from oilfield to gas station, every step powered by diesel."
+                loading="lazy"
+              />
+              <figcaption
+                className="font-stencil"
+                style={{
+                  background: "var(--dfc-navy)",
+                  color: "var(--dfc-cream)",
+                  padding: "0.75rem 1rem",
+                  fontSize: "0.78rem",
+                  letterSpacing: "0.18em",
+                  textAlign: "center",
+                }}
+              >
+                Well to Pump
+              </figcaption>
+            </figure>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {SUPPLY_STATS.map((s) => (
               <div key={s.label} className="stat-card">
                 <div className="stat-card-number">{s.value}</div>
                 <div className="stat-card-label">{s.label}</div>
@@ -240,215 +363,955 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =========== MANDATE BREAKDOWN =========== */}
-      <section className="section section-navy" id="mandate">
+      {/* =========== COMPLIANCE TAX =========== */}
+      <section className="section section-navy">
         <div className="container">
-          <div className="text-center mb-14">
-            <span className="section-eyebrow mb-6 inline-flex">The Mandate</span>
-            <h2 className="section-title section-title-cream mt-6">
-              Eight Components.
-              <br />
-              <span style={{ color: "var(--dfc-gold)" }}>One Federal Bill.</span>
-            </h2>
-            <p
-              className="mx-auto mt-6"
-              style={{
-                maxWidth: "48rem",
-                fontSize: "1.1rem",
-                lineHeight: 1.6,
-                color: "var(--dfc-cream)",
-                opacity: 0.82,
-              }}
-            >
-              This is the aftertreatment stack bolted onto every modern Class 8 diesel. None of it makes the truck haul more freight. All of it fails. And every component is paid for by the operator.
-            </p>
-          </div>
+          <div className="poster-split poster-split-wide-text">
+            <figure className="poster-frame">
+              <img
+                src="/posters/08-compliance-tax.png"
+                alt="The Compliance Tax: $25,000 a year per truck, $125,000 over five years. The weight and the burn of EPA mandates."
+                loading="lazy"
+              />
+            </figure>
+            <div>
+              <span className="section-eyebrow mb-6 inline-flex">The Compliance Tax</span>
+              <h2 className="section-title section-title-cream mt-6 mb-5">
+                Washington Put A Meter
+                <br />
+                <span style={{ color: "var(--dfc-gold)" }}>On Every Truck.</span>
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.1rem",
+                  lineHeight: 1.65,
+                  color: "var(--dfc-cream)",
+                  opacity: 0.88,
+                  marginBottom: "1.5rem",
+                }}
+              >
+                Every Class 8 on the road pays a federal compliance tax. Not a tax on fuel. Not a tax on income. A tax on the hardware bolted to the truck and the fuel that hardware forces it to burn. Owner-operators eat it. Fleets price it in. Families pay for it in the checkout line.
+              </p>
+              <p
+                style={{
+                  fontSize: "1rem",
+                  lineHeight: 1.6,
+                  color: "var(--dfc-cream)",
+                  opacity: 0.78,
+                  marginBottom: "2rem",
+                }}
+              >
+                The weight is DEF fluid, aftertreatment boxes, dosers, and sensors. The burn is active regens, fuel penalties, and downtime at the dealer. It never stops adding up.
+              </p>
 
-          <div className="max-w-4xl mx-auto">
-            {MANDATE.map((m) => (
-              <div key={m.num} className="data-row">
-                <div className="flex items-start gap-5">
-                  <div
-                    className="font-stencil shrink-0"
+              <div className="grid sm:grid-cols-2 gap-5">
+                <div
+                  style={{
+                    border: "2px solid var(--dfc-gold)",
+                    padding: "1.5rem",
+                    background: "rgba(200,151,58,0.08)",
+                  }}
+                >
+                  <p
+                    className="font-stencil"
                     style={{
-                      fontSize: "2rem",
                       color: "var(--dfc-gold)",
-                      lineHeight: 1,
-                      minWidth: "2.5rem",
+                      letterSpacing: "0.2em",
+                      fontSize: "0.72rem",
                     }}
                   >
-                    {m.num.padStart(2, "0")}
-                  </div>
-                  <div>
-                    <div
+                    Per Year, Per Truck
+                  </p>
+                  <p
+                    className="font-stencil"
+                    style={{
+                      color: "var(--dfc-cream)",
+                      fontSize: "clamp(2rem, 4vw, 2.75rem)",
+                      lineHeight: 1,
+                      margin: "0.5rem 0",
+                    }}
+                  >
+                    $25,000
+                  </p>
+                  <p
+                    className="font-stencil"
+                    style={{
+                      color: "var(--dfc-gold)",
+                      fontSize: "0.65rem",
+                      letterSpacing: "0.16em",
+                      opacity: 0.85,
+                    }}
+                  >
+                    Source: ATRI 2024, Dealer Data
+                  </p>
+                </div>
+                <div
+                  style={{
+                    border: "2px solid var(--dfc-gold)",
+                    padding: "1.5rem",
+                    background: "rgba(200,151,58,0.08)",
+                  }}
+                >
+                  <p
+                    className="font-stencil"
+                    style={{
+                      color: "var(--dfc-gold)",
+                      letterSpacing: "0.2em",
+                      fontSize: "0.72rem",
+                    }}
+                  >
+                    Over Five Years
+                  </p>
+                  <p
+                    className="font-stencil"
+                    style={{
+                      color: "var(--dfc-cream)",
+                      fontSize: "clamp(2rem, 4vw, 2.75rem)",
+                      lineHeight: 1,
+                      margin: "0.5rem 0",
+                    }}
+                  >
+                    $125,000
+                  </p>
+                  <p
+                    className="font-stencil"
+                    style={{
+                      color: "var(--dfc-gold)",
+                      fontSize: "0.65rem",
+                      letterSpacing: "0.16em",
+                      opacity: 0.85,
+                    }}
+                  >
+                    Source: DFC White Paper, April 2026
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========== NONE OF THIS IS NEEDED. TRUCK =========== */}
+      <section className="section section-cream" id="mandate">
+        <div className="container">
+          <div className="poster-split poster-split-wide-text reverse">
+            <div>
+              <span className="section-eyebrow mb-6 inline-flex">None Of This Is Needed</span>
+              <h2 className="section-title mt-6 mb-5">
+                Eight Components.
+                <br />
+                <span style={{ color: "var(--dfc-oxblood)" }}>$60,800 Lifetime.</span>
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.1rem",
+                  lineHeight: 1.65,
+                  marginBottom: "1.5rem",
+                  color: "var(--dfc-navy)",
+                  opacity: 0.88,
+                }}
+              >
+                This is the aftertreatment stack bolted onto every new Class 8 diesel. None of it makes the truck haul more freight. All of it fails. Every component is paid for by the operator, not the agency that mandated it.
+              </p>
+
+              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                {MANDATE_PARTS.map((m, i) => (
+                  <li
+                    key={m.part}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "baseline",
+                      gap: "1rem",
+                      padding: "0.7rem 0",
+                      borderBottom:
+                        i === MANDATE_PARTS.length - 1
+                          ? "none"
+                          : "1px solid var(--dfc-border)",
+                    }}
+                  >
+                    <span>
+                      <span
+                        className="font-stencil"
+                        style={{
+                          color: "var(--dfc-oxblood)",
+                          letterSpacing: "0.08em",
+                          fontSize: "1rem",
+                          marginRight: "0.6rem",
+                        }}
+                      >
+                        {m.part}
+                      </span>
+                      <span style={{ fontSize: "0.98rem", opacity: 0.85 }}>{m.name}</span>
+                    </span>
+                    <span
                       className="font-stencil"
                       style={{
-                        fontSize: "1.35rem",
-                        color: "var(--dfc-cream)",
-                        letterSpacing: "0.04em",
+                        color: "var(--dfc-navy)",
+                        fontSize: "1.05rem",
+                        whiteSpace: "nowrap",
                       }}
                     >
-                      {m.part} · {m.name}
-                    </div>
+                      {m.cost}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <div
+                className="mt-8"
+                style={{
+                  border: "2px solid var(--dfc-oxblood)",
+                  padding: "1.5rem",
+                  background: "rgba(139,26,26,0.06)",
+                }}
+              >
+                <p
+                  className="font-stencil"
+                  style={{
+                    color: "var(--dfc-oxblood)",
+                    letterSpacing: "0.22em",
+                    fontSize: "0.75rem",
+                  }}
+                >
+                  Lifetime Dealer Total
+                </p>
+                <p
+                  className="font-stencil"
+                  style={{
+                    fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+                    color: "var(--dfc-navy)",
+                    lineHeight: 1,
+                    margin: "0.5rem 0",
+                  }}
+                >
+                  $60,800+
+                </p>
+                <p
+                  className="font-stencil"
+                  style={{
+                    color: "var(--dfc-oxblood)",
+                    fontSize: "0.65rem",
+                    letterSpacing: "0.16em",
+                    opacity: 0.85,
+                  }}
+                >
+                  Source: OEM Dealer Pricing, Parts + Labor, 2026
+                </p>
+              </div>
+            </div>
+
+            <figure className="poster-frame">
+              <img
+                src="/posters/07-none-needed-truck.png"
+                alt="None of this is needed: a diesel truck with 8 mandated components callouts totaling $60,800 lifetime."
+                loading="lazy"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      {/* =========== LIMP HOME =========== */}
+      <section className="section section-navy">
+        <div className="container">
+          <div className="poster-split poster-split-wide-text">
+            <figure className="poster-frame">
+              <img
+                src="/posters/09-limp-home.png"
+                alt="Limp Home: one bad sensor drops a Class 8 truck to 5 MPH within 150 miles. Dead on the interstate."
+                loading="lazy"
+              />
+            </figure>
+            <div>
+              <span className="section-eyebrow mb-6 inline-flex">Limp Home Mode</span>
+              <h2 className="section-title section-title-cream mt-6 mb-5">
+                One Bad Sensor.
+                <br />
+                <span style={{ color: "var(--dfc-gold)" }}>Dead On The Interstate.</span>
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.1rem",
+                  lineHeight: 1.65,
+                  color: "var(--dfc-cream)",
+                  opacity: 0.88,
+                  marginBottom: "1.25rem",
+                }}
+              >
+                A single $1,100 NOx sensor. That is all it takes. The ECM throws a code, the truck derates to 5 MPH inside 150 miles, and a loaded Class 8 becomes a road closure. Not a theoretical problem. A nightly one.
+              </p>
+              <p
+                style={{
+                  fontSize: "1rem",
+                  lineHeight: 1.6,
+                  color: "var(--dfc-cream)",
+                  opacity: 0.78,
+                  marginBottom: "2rem",
+                }}
+              >
+                This is what the mandate actually produces. A truck that shuts itself down to protect a part the government said had to be there in the first place.
+              </p>
+
+              <div className="grid sm:grid-cols-3 gap-4">
+                {[
+                  { val: "$2,500", lbl: "Highway Tow" },
+                  { val: "$91/hr", lbl: "Downtime Cost" },
+                  { val: "$6,000", lbl: "Per Incident" },
+                ].map((b) => (
+                  <div
+                    key={b.lbl}
+                    style={{
+                      border: "2px solid var(--dfc-gold)",
+                      padding: "1.25rem 1rem",
+                      background: "rgba(200,151,58,0.08)",
+                      textAlign: "center",
+                    }}
+                  >
                     <p
+                      className="font-stencil"
                       style={{
-                        fontSize: "0.95rem",
-                        lineHeight: 1.5,
+                        fontSize: "clamp(1.5rem, 3vw, 2rem)",
                         color: "var(--dfc-cream)",
-                        opacity: 0.75,
-                        marginTop: "0.35rem",
+                        lineHeight: 1,
                       }}
                     >
-                      {m.note}
+                      {b.val}
+                    </p>
+                    <p
+                      className="font-stencil mt-2"
+                      style={{
+                        color: "var(--dfc-gold)",
+                        letterSpacing: "0.18em",
+                        fontSize: "0.68rem",
+                      }}
+                    >
+                      {b.lbl}
                     </p>
                   </div>
-                </div>
-                <div className="data-big text-right md:text-right">{m.cost}</div>
+                ))}
               </div>
-            ))}
+              <p
+                className="font-stencil mt-4"
+                style={{
+                  color: "var(--dfc-gold)",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.16em",
+                  opacity: 0.78,
+                }}
+              >
+                Source: ATRI Operational Cost Study, Owner-Operator Surveys 2024
+              </p>
+            </div>
           </div>
+        </div>
+      </section>
 
-          <div
-            className="mt-14 text-center mx-auto"
-            style={{
-              maxWidth: "42rem",
-              border: "2px solid var(--dfc-gold)",
-              padding: "2rem",
-              background: "rgba(200,151,58,0.08)",
-            }}
-          >
-            <p
-              className="font-stencil"
-              style={{ color: "var(--dfc-gold)", letterSpacing: "0.22em", fontSize: "0.85rem" }}
-            >
-              Lifetime Dealer Total
-            </p>
-            <p
-              className="font-stencil"
+      {/* =========== PLASTIC FOR A CLEANER PLANET =========== */}
+      <section className="section section-cream">
+        <div className="container">
+          <div className="poster-split poster-split-wide-text reverse">
+            <div>
+              <span className="section-eyebrow mb-6 inline-flex">Plastic For A Cleaner Planet</span>
+              <h2 className="section-title mt-6 mb-5">
+                125 Million Jugs.
+                <br />
+                <span style={{ color: "var(--dfc-oxblood)" }}>For The Planet.</span>
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.1rem",
+                  lineHeight: 1.65,
+                  marginBottom: "1.5rem",
+                  color: "var(--dfc-navy)",
+                  opacity: 0.88,
+                }}
+              >
+                DEF is sold as an environmental solution. The checkout counter tells a different story. 125 million plastic jugs of urea water a year, manufactured from natural gas, trucked cross-country, poured into exhaust streams, and thrown away. Ninety percent never get recycled.
+              </p>
+              <p
+                style={{
+                  fontSize: "1rem",
+                  lineHeight: 1.6,
+                  color: "var(--dfc-navy)",
+                  opacity: 0.78,
+                  marginBottom: "2rem",
+                }}
+              >
+                End the mandate and every jug on that pallet disappears with it. No new technology. No subsidy. Just the repeal of the rule that put it on the shelf.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4">
+                {PLASTIC_STATS.map((s) => (
+                  <div
+                    key={s.label}
+                    style={{
+                      border: "2px solid var(--dfc-navy)",
+                      padding: "1.25rem 1rem",
+                      background: "var(--dfc-cream-2)",
+                      boxShadow: "3px 3px 0 var(--dfc-oxblood)",
+                    }}
+                  >
+                    <p
+                      className="font-stencil"
+                      style={{
+                        fontSize: "clamp(1.75rem, 3vw, 2.25rem)",
+                        color: "var(--dfc-oxblood)",
+                        lineHeight: 1,
+                      }}
+                    >
+                      {s.value}
+                    </p>
+                    <p
+                      className="font-stencil mt-2"
+                      style={{
+                        color: "var(--dfc-navy)",
+                        letterSpacing: "0.14em",
+                        fontSize: "0.72rem",
+                      }}
+                    >
+                      {s.label}
+                    </p>
+                    <p
+                      className="font-stencil mt-2"
+                      style={{
+                        color: "var(--dfc-oxblood)",
+                        fontSize: "0.58rem",
+                        letterSpacing: "0.14em",
+                        opacity: 0.8,
+                      }}
+                    >
+                      {s.source}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <figure className="poster-frame">
+              <img
+                src="/posters/10-plastic-cleaner-planet.png"
+                alt="Plastic for a Cleaner Planet: 125 million DEF jugs per year, 47,000 tons of plastic, 90% landfilled."
+                loading="lazy"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      {/* =========== DIRT TO DEAD METAL =========== */}
+      <section className="section section-navy">
+        <div className="container">
+          <div className="poster-split poster-split-wide-text">
+            <figure className="poster-frame">
+              <img
+                src="/posters/06-dirt-to-dead-metal.png"
+                alt="Dirt to Dead Metal: rare earth mining abroad, catalysts and sensors installed on American trucks, foreign mines paying American bills."
+                loading="lazy"
+              />
+            </figure>
+            <div>
+              <span className="section-eyebrow mb-6 inline-flex">Dirt To Dead Metal</span>
+              <h2 className="section-title section-title-cream mt-6 mb-5">
+                Foreign Mines.
+                <br />
+                <span style={{ color: "var(--dfc-gold)" }}>American Bills.</span>
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.1rem",
+                  lineHeight: 1.65,
+                  color: "var(--dfc-cream)",
+                  opacity: 0.88,
+                  marginBottom: "1.25rem",
+                }}
+              >
+                Every aftertreatment system the EPA mandates starts thousands of miles from an American shop. Platinum, palladium, vanadium, cerium, copper-zeolite. The rare earth materials that make catalysts and sensors possible come out of foreign mines. China controls 60 to 70 percent of the global supply.
+              </p>
+              <p
+                style={{
+                  fontSize: "1rem",
+                  lineHeight: 1.6,
+                  color: "var(--dfc-cream)",
+                  opacity: 0.78,
+                  marginBottom: "1.5rem",
+                }}
+              >
+                Mandated compliance means mandated foreign dependence. The part that enters the truck is already owned by a supply chain the United States does not control. Every DPF, every DOC, every SCR brick on every new Class 8 ships American money overseas.
+              </p>
+
+              <div
+                style={{
+                  border: "2px solid var(--dfc-gold)",
+                  padding: "1.5rem",
+                  background: "rgba(200,151,58,0.08)",
+                }}
+              >
+                <p
+                  className="font-stencil"
+                  style={{
+                    color: "var(--dfc-gold)",
+                    letterSpacing: "0.22em",
+                    fontSize: "0.72rem",
+                  }}
+                >
+                  China&rsquo;s Share of Rare Earth Mining
+                </p>
+                <p
+                  className="font-stencil"
+                  style={{
+                    fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+                    color: "var(--dfc-cream)",
+                    lineHeight: 1,
+                    margin: "0.5rem 0",
+                  }}
+                >
+                  60–70%
+                </p>
+                <p
+                  className="font-stencil"
+                  style={{
+                    color: "var(--dfc-gold)",
+                    fontSize: "0.6rem",
+                    letterSpacing: "0.16em",
+                    opacity: 0.85,
+                  }}
+                >
+                  Source: USGS, DOE Critical Materials Assessment
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========== ELIMINATE THE MANDATE =========== */}
+      <section className="section section-cream">
+        <div className="container">
+          <div className="poster-split poster-split-wide-text reverse">
+            <div>
+              <span className="section-eyebrow mb-6 inline-flex">Eliminate The Mandate</span>
+              <h2 className="section-title mt-6 mb-5">
+                None Of It Needed.
+                <br />
+                <span style={{ color: "var(--dfc-oxblood)" }}>Delete The Rule.</span>
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.1rem",
+                  lineHeight: 1.65,
+                  marginBottom: "1.25rem",
+                  color: "var(--dfc-navy)",
+                  opacity: 0.88,
+                }}
+              >
+                Natural gas to ammonia to urea to plastic jug to heated tank to exhaust stream. Every step of the DEF supply chain exists only because the federal government picked a technology and wrote it into law. Remove that rule and the entire chain goes dark the next morning.
+              </p>
+              <p
+                style={{
+                  fontSize: "1rem",
+                  lineHeight: 1.6,
+                  color: "var(--dfc-navy)",
+                  opacity: 0.78,
+                  marginBottom: "1.75rem",
+                }}
+              >
+                No new refineries to shut down. No factories to close. No infrastructure to retire. Just a ruling gone, and with it the pallets of urea, the heated lines, the dosers, the crystals, the tow bills, the downtime, and the 125 million gallons a year.
+              </p>
+
+              <div
+                style={{
+                  border: "3px solid var(--dfc-oxblood)",
+                  padding: "1.75rem",
+                  background: "rgba(139,26,26,0.06)",
+                }}
+              >
+                <p
+                  className="font-serif-display"
+                  style={{
+                    fontStyle: "italic",
+                    fontSize: "clamp(1.25rem, 2.3vw, 1.6rem)",
+                    lineHeight: 1.4,
+                    color: "var(--dfc-navy)",
+                  }}
+                >
+                  &ldquo;Regulate the what, not the how.&rdquo;
+                </p>
+                <p
+                  className="font-stencil mt-4"
+                  style={{
+                    color: "var(--dfc-oxblood)",
+                    letterSpacing: "0.22em",
+                    fontSize: "0.75rem",
+                  }}
+                >
+                  Diesel Freedom Coalition White Paper, April 2026
+                </p>
+              </div>
+            </div>
+
+            <figure className="poster-frame">
+              <img
+                src="/posters/05-none-needed-def.png"
+                alt="None of this is needed: the entire DEF supply chain exists only because of the EPA mandate. Eliminate the mandate."
+                loading="lazy"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      {/* =========== THE FALSE CHOICE / WELL-TO-WHEEL =========== */}
+      <section className="section section-cream">
+        <div className="container">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="section-eyebrow mb-6 inline-flex">The Real Math</span>
+              <h2 className="section-title mt-6">
+                It Is A False Choice.
+                <br />
+                <span style={{ color: "var(--dfc-oxblood)" }}>We Get Both.</span>
+              </h2>
+              <p
+                className="mx-auto mt-6"
+                style={{
+                  maxWidth: "52rem",
+                  fontSize: "1.1rem",
+                  lineHeight: 1.65,
+                  color: "var(--dfc-navy)",
+                  opacity: 0.85,
+                }}
+              >
+                Critics say cleaner air or operable trucks. Pick one. That is a false dichotomy. Clean air and reliable, durable, productive American diesel are fully compatible goals when the regulator measures the right thing.
+              </p>
+            </div>
+
+            <div
               style={{
-                fontSize: "clamp(3rem, 6vw, 4.5rem)",
+                background: "var(--dfc-navy)",
                 color: "var(--dfc-cream)",
-                lineHeight: 1,
-                margin: "0.75rem 0",
+                padding: "2.5rem",
+                border: "3px solid var(--dfc-navy)",
+                boxShadow: "8px 8px 0 var(--dfc-oxblood)",
               }}
             >
-              $60,800+
-            </p>
-            <p style={{ color: "var(--dfc-cream)", opacity: 0.78, fontSize: "0.95rem" }}>
-              Worst case, OEM dealer, parts plus labor across the ownership lifecycle. Not what keeps America fed. What keeps Washington paid.
+              <p
+                className="font-stencil"
+                style={{
+                  color: "var(--dfc-gold)",
+                  letterSpacing: "0.22em",
+                  fontSize: "0.78rem",
+                  marginBottom: "0.75rem",
+                }}
+              >
+                Tailpipe Symbolism vs. Well-To-Wheel Reality
+              </p>
+              <p
+                style={{
+                  fontSize: "1.05rem",
+                  lineHeight: 1.65,
+                  opacity: 0.92,
+                  marginBottom: "1.5rem",
+                }}
+              >
+                EPA measures pollution at the tailpipe. That ignores the upstream cost of mining rare earths, refining DEF feedstock, manufacturing aftertreatment hardware, hauling replacement parts, and burning extra diesel to push 650 pounds of dead weight every mile of every trip. Measured well-to-wheel across the full lifecycle, post-2007 mandate-compliant engines actually emit more total pollutants than the pre-2007 designs they replaced.
+              </p>
+              <p
+                style={{
+                  fontSize: "1.05rem",
+                  lineHeight: 1.65,
+                  opacity: 0.92,
+                }}
+              >
+                Reform delivers a real environmental win. Less fuel burned, fewer engine replacements, fewer DEF jugs in landfills, less foreign mining, less idling, less limp-mode stranding. Smarter engineering beats symbolic rules every time.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+              {[
+                {
+                  val: "17%",
+                  label: "Fewer Lifetime Pollutants",
+                  desc: "Net well-to-wheel reduction vs current mandate-compliant baseline.",
+                },
+                {
+                  val: "20-25%",
+                  label: "Better Fuel Economy",
+                  desc: "Real-world MPG gain when the aftertreatment burden is removed.",
+                },
+                {
+                  val: "50%",
+                  label: "Longer Engine Life",
+                  desc: "Pre-2007: 600,000 to 1,000,000+ miles. Post-2007: ~350,000 miles.",
+                },
+                {
+                  val: "10-20%",
+                  label: "More Horsepower",
+                  desc: "Power gain from removing EGR pumping losses and exhaust backpressure.",
+                },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  style={{
+                    border: "2px solid var(--dfc-navy)",
+                    background: "var(--dfc-cream)",
+                    padding: "1.25rem 1rem",
+                    boxShadow: "4px 4px 0 var(--dfc-oxblood)",
+                  }}
+                >
+                  <p
+                    className="font-stencil"
+                    style={{
+                      fontSize: "clamp(1.5rem, 3.5vw, 2rem)",
+                      color: "var(--dfc-oxblood)",
+                      lineHeight: 1,
+                      marginBottom: "0.4rem",
+                    }}
+                  >
+                    {s.val}
+                  </p>
+                  <p
+                    className="font-stencil"
+                    style={{
+                      fontSize: "0.7rem",
+                      letterSpacing: "0.14em",
+                      color: "var(--dfc-navy)",
+                      marginBottom: "0.4rem",
+                    }}
+                  >
+                    {s.label}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "0.82rem",
+                      lineHeight: 1.45,
+                      color: "var(--dfc-navy)",
+                      opacity: 0.78,
+                    }}
+                  >
+                    {s.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <p
+              className="font-stencil text-center mt-6"
+              style={{
+                color: "var(--dfc-oxblood)",
+                fontSize: "0.7rem",
+                letterSpacing: "0.18em",
+              }}
+            >
+              Source: Diesel Freedom Coalition White Paper, April 2026
             </p>
           </div>
         </div>
       </section>
 
-      {/* =========== DEF PROCESS =========== */}
-      <section className="section section-cream">
+      {/* =========== WHAT WE WON / WHAT IS LEFT =========== */}
+      <section className="section section-navy">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="section-eyebrow mb-6 inline-flex">Dirt to Dead Metal</span>
-              <h2 className="section-title mt-6 mb-6">
-                Where DEF Actually
-                <br />
-                <span style={{ color: "var(--dfc-oxblood)" }}>Comes From.</span>
-              </h2>
-              <p style={{ fontSize: "1.1rem", lineHeight: 1.65, marginBottom: "1.25rem" }}>
-                Diesel Exhaust Fluid is sold as an environmental solution. The supply chain tells a different story.
-              </p>
+          <div className="text-center mb-14">
+            <span className="section-eyebrow mb-6 inline-flex">Gratitude And Unfinished Work</span>
+            <h2 className="section-title section-title-cream mt-6">
+              Thank You,
+              <br />
+              <span style={{ color: "var(--dfc-gold)" }}>President Trump.</span>
+            </h2>
+            <p
+              className="mx-auto mt-6"
+              style={{
+                maxWidth: "56rem",
+                fontSize: "1.1rem",
+                lineHeight: 1.65,
+                color: "var(--dfc-cream)",
+                opacity: 0.88,
+              }}
+            >
+              The Trump Administration and EPA have taken historic steps. The February 2026 rescission of the 2009 Greenhouse Gas Endangerment Finding. The March 2026 repeal of the DEF sensor mandate. President Trump and Administrator Zeldin deserve the diesel community&rsquo;s deepest gratitude. They ended weaponized prosecutions of mechanics, delivered $13.79 billion a year in DEF sensor relief, and restored common sense to emissions regulation. We thank you. And we are not finished.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+            <div className="bill-card" style={{ borderColor: "var(--dfc-gold)" }}>
+              <div
+                className="font-stencil mb-4 inline-flex"
+                style={{
+                  color: "var(--dfc-gold)",
+                  letterSpacing: "0.22em",
+                  fontSize: "0.78rem",
+                  borderBottom: "2px solid var(--dfc-gold)",
+                  paddingBottom: "0.5rem",
+                }}
+              >
+                ✓ Already Won
+              </div>
               <ul
                 style={{
                   listStyle: "none",
                   padding: 0,
                   fontSize: "1rem",
-                  lineHeight: 1.6,
+                  lineHeight: 1.55,
+                  marginTop: "1rem",
                 }}
               >
-                <li style={{ padding: "0.75rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
-                  <strong>Step 1.</strong> Natural gas extracted from American and overseas fields.
+                <li style={{ padding: "0.7rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
+                  <strong>Feb 2026.</strong> The 2009 Greenhouse Gas Endangerment Finding rescinded.
                 </li>
-                <li style={{ padding: "0.75rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
-                  <strong>Step 2.</strong> Reformed into ammonia at industrial plants burning more natural gas.
+                <li style={{ padding: "0.7rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
+                  <strong>Mar 2026.</strong> DEF sensor mandate repealed.
                 </li>
-                <li style={{ padding: "0.75rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
-                  <strong>Step 3.</strong> Ammonia converted to urea with CO2 injected at pressure.
+                <li style={{ padding: "0.7rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
+                  <strong>$13.79 billion a year.</strong> Combined savings from both actions.
                 </li>
-                <li style={{ padding: "0.75rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
-                  <strong>Step 4.</strong> Urea mixed with deionized water to 32.5%. That is DEF.
-                </li>
-                <li style={{ padding: "0.75rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
-                  <strong>Step 5.</strong> Bottled in single-use plastic jugs. 125 million gallons a year.
-                </li>
-                <li style={{ padding: "0.75rem 0" }}>
-                  <strong>Step 6.</strong> Trucked to every state, burned in an exhaust stream, vented as nitrogen and water.
+                <li style={{ padding: "0.7rem 0" }}>
+                  <strong>Mechanics.</strong> No more Clean Air Act prosecutions for owner-authorized work.
                 </li>
               </ul>
             </div>
 
             <div className="bill-card">
-              <div className="section-eyebrow mb-4 inline-flex">Read The Label</div>
-              <h3
-                className="font-stencil"
-                style={{
-                  fontSize: "1.8rem",
-                  color: "var(--dfc-oxblood)",
-                  marginTop: "1rem",
-                  lineHeight: 1.1,
-                }}
-              >
-                DEF Is Not Harmless.
-              </h3>
+              <div className="section-eyebrow mb-4 inline-flex">Still Unfinished</div>
               <ul
                 style={{
                   listStyle: "none",
                   padding: 0,
-                  fontSize: "0.98rem",
-                  lineHeight: 1.6,
+                  fontSize: "1rem",
+                  lineHeight: 1.55,
                   marginTop: "1rem",
                 }}
               >
-                <li style={{ padding: "0.6rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
-                  <strong>Eye:</strong> Causes serious irritation on direct contact. Flush 15+ minutes.
+                <li style={{ padding: "0.7rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
+                  <strong>EGR.</strong> Still federally mandated on every Class 8 diesel.
                 </li>
-                <li style={{ padding: "0.6rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
-                  <strong>Skin:</strong> Prolonged exposure causes dermatitis and chemical burns.
+                <li style={{ padding: "0.7rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
+                  <strong>DPF.</strong> Still mandated. Still plugs with soot. Still fails.
                 </li>
-                <li style={{ padding: "0.6rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
-                  <strong>Inhalation:</strong> Ammonia release irritates the respiratory tract.
+                <li style={{ padding: "0.7rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
+                  <strong>SCR and DEF.</strong> Still mandated. 125 million gallons a year.
                 </li>
-                <li style={{ padding: "0.6rem 0", borderBottom: "1px solid var(--dfc-border)" }}>
-                  <strong>Ingestion:</strong> Toxic. Induces nausea, vomiting, kidney stress.
-                </li>
-                <li style={{ padding: "0.6rem 0" }}>
-                  <strong>Spill:</strong> Corrodes steel, aluminum, copper, and zinc when dried.
+                <li style={{ padding: "0.7rem 0" }}>
+                  <strong>Hardware mandates.</strong> Still override performance. Still pick the technology instead of the outcome.
                 </li>
               </ul>
-              <p
+            </div>
+          </div>
+
+          {/* EXECUTIVE ORDERS STRIP */}
+          <div className="mt-16">
+            <div className="text-center mb-8">
+              <span
                 className="font-stencil"
                 style={{
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.18em",
-                  color: "var(--dfc-oxblood)",
-                  marginTop: "1.25rem",
-                  paddingTop: "1rem",
-                  borderTop: "2px solid var(--dfc-oxblood)",
+                  color: "var(--dfc-gold)",
+                  letterSpacing: "0.22em",
+                  fontSize: "0.78rem",
+                  borderTop: "2px solid var(--dfc-gold)",
+                  borderBottom: "2px solid var(--dfc-gold)",
+                  padding: "0.6rem 1.5rem",
+                  display: "inline-block",
                 }}
               >
-                Source: OSHA, NIOSH, Manufacturer SDS
-              </p>
+                ★ Built On Executive Action ★
+              </span>
             </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+              {[
+                {
+                  tag: "EO 14147",
+                  date: "Jan 20, 2025",
+                  title: "End Weaponization",
+                  desc: "Directs the federal government to correct past weaponization of law enforcement against political opponents.",
+                },
+                {
+                  tag: "EO 14219",
+                  date: "Feb 19, 2025",
+                  title: "Repeal Burdensome Rules",
+                  desc: "Implements the mandate to repeal unlawful or burdensome regulations that exceed authority or harm small businesses.",
+                },
+                {
+                  tag: "DOJ Memo",
+                  date: "2025",
+                  title: "Blanche Halt",
+                  desc: "Todd Blanche (ODAG) Memo halted Department of Justice prosecutions of diesel defeat-device cases nationwide.",
+                },
+                {
+                  tag: "EPA Action",
+                  date: "Feb 2026",
+                  title: "Zeldin Rescinds",
+                  desc: "Administrator Zeldin removed the 2009 Endangerment Finding on which every prosecution rested. The legal foundation is gone.",
+                },
+              ].map((eo) => (
+                <div
+                  key={eo.tag}
+                  style={{
+                    border: "2px solid var(--dfc-gold)",
+                    background: "rgba(200,151,58,0.08)",
+                    padding: "1.25rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <p
+                    className="font-stencil"
+                    style={{
+                      color: "var(--dfc-gold)",
+                      fontSize: "0.7rem",
+                      letterSpacing: "0.18em",
+                    }}
+                  >
+                    {eo.tag} · {eo.date}
+                  </p>
+                  <p
+                    className="font-stencil"
+                    style={{
+                      color: "var(--dfc-cream)",
+                      fontSize: "1.1rem",
+                      lineHeight: 1.15,
+                    }}
+                  >
+                    {eo.title}
+                  </p>
+                  <p
+                    style={{
+                      color: "var(--dfc-cream)",
+                      opacity: 0.78,
+                      fontSize: "0.88rem",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {eo.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p
+              className="text-center font-stencil mt-8 mx-auto"
+              style={{
+                color: "var(--dfc-cream)",
+                opacity: 0.7,
+                fontSize: "0.78rem",
+                letterSpacing: "0.18em",
+                maxWidth: "44rem",
+              }}
+            >
+              The runway is clear. Performance-based reform is now legally and politically open.
+            </p>
           </div>
         </div>
       </section>
 
       {/* =========== TROY STORY =========== */}
-      <section className="section section-navy" id="story">
+      <section className="section section-cream" id="story">
         <div className="container">
           <div className="text-center mb-14">
             <span className="section-eyebrow mb-6 inline-flex">The Human Story</span>
-            <h2 className="section-title section-title-cream mt-6">
+            <h2 className="section-title mt-6">
               Troy Lake.
               <br />
-              <span style={{ color: "var(--dfc-gold)" }}>Pardoned by a President.</span>
+              <span style={{ color: "var(--dfc-oxblood)" }}>Pardoned By A President.</span>
             </h2>
             <p
               className="mx-auto mt-6"
@@ -456,7 +1319,7 @@ export default function HomePage() {
                 maxWidth: "48rem",
                 fontSize: "1.1rem",
                 lineHeight: 1.6,
-                color: "var(--dfc-cream)",
+                color: "var(--dfc-navy)",
                 opacity: 0.82,
               }}
             >
@@ -468,21 +1331,9 @@ export default function HomePage() {
             <div className="timeline">
               {TIMELINE.map((t) => (
                 <div key={t.year} className="timeline-item">
-                  <div className="timeline-year" style={{ color: "var(--dfc-gold)" }}>
-                    {t.year}
-                  </div>
-                  <div
-                    className="timeline-title"
-                    style={{ color: "var(--dfc-cream)" }}
-                  >
-                    {t.title}
-                  </div>
-                  <p
-                    className="timeline-desc"
-                    style={{ color: "var(--dfc-cream)", opacity: 0.78 }}
-                  >
-                    {t.desc}
-                  </p>
+                  <div className="timeline-year">{t.year}</div>
+                  <div className="timeline-title">{t.title}</div>
+                  <p className="timeline-desc">{t.desc}</p>
                 </div>
               ))}
             </div>
@@ -490,19 +1341,19 @@ export default function HomePage() {
             <div
               className="mt-12"
               style={{
-                background: "rgba(245,237,216,0.06)",
-                border: "1px solid var(--dfc-gold)",
+                background: "var(--dfc-cream-2)",
+                border: "2px solid var(--dfc-oxblood)",
                 padding: "2rem",
+                boxShadow: "6px 6px 0 var(--dfc-navy)",
               }}
             >
               <p
                 className="font-serif-display"
                 style={{
-                  fontFamily: 'var(--font-serif), "Playfair Display", Georgia, serif',
                   fontStyle: "italic",
                   fontSize: "clamp(1.25rem, 2.2vw, 1.65rem)",
                   lineHeight: 1.45,
-                  color: "var(--dfc-cream)",
+                  color: "var(--dfc-navy)",
                 }}
               >
                 &ldquo;I served seven months for fixing trucks the way my customers asked me to fix them. Two pardons later, I am still in this fight. Not for me. For every owner-operator who gets buried every time Washington writes another rule.&rdquo;
@@ -510,7 +1361,7 @@ export default function HomePage() {
               <p
                 className="font-stencil mt-5"
                 style={{
-                  color: "var(--dfc-gold)",
+                  color: "var(--dfc-oxblood)",
                   letterSpacing: "0.22em",
                   fontSize: "0.8rem",
                 }}
@@ -522,12 +1373,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =========== BILL CARD =========== */}
-      <section className="section section-cream" id="bill">
+      {/* =========== H.R. 8079 BILL CARD =========== */}
+      <section className="section section-navy" id="bill">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="bill-card">
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
                 <span className="section-eyebrow">The Bill</span>
                 <span
                   className="font-stencil"
@@ -586,11 +1437,11 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div
-                className="mt-8 pt-8"
-                style={{ borderTop: "2px solid var(--dfc-navy)" }}
-              >
-                <p className="font-stencil mb-3" style={{ fontSize: "0.85rem", letterSpacing: "0.18em" }}>
+              <div className="mt-8 pt-8" style={{ borderTop: "2px solid var(--dfc-navy)" }}>
+                <p
+                  className="font-stencil mb-3"
+                  style={{ fontSize: "0.85rem", letterSpacing: "0.18em" }}
+                >
                   What It Does
                 </p>
                 <ul
@@ -602,22 +1453,22 @@ export default function HomePage() {
                   }}
                 >
                   <li style={{ padding: "0.5rem 0" }}>
-                    <strong>1.</strong> Rolls back EPA 2027 emissions rule on Class 8 trucks
+                    <strong>1.</strong> Rolls back EPA 2027 emissions rule on Class 8 trucks.
                   </li>
                   <li style={{ padding: "0.5rem 0" }}>
-                    <strong>2.</strong> Protects repair shops from Clean Air Act liability on owner-requested work
+                    <strong>2.</strong> Protects repair shops from Clean Air Act liability on owner-requested work.
                   </li>
                   <li style={{ padding: "0.5rem 0" }}>
-                    <strong>3.</strong> Ends the DEF mandate on new commercial diesel chassis
+                    <strong>3.</strong> Ends the DEF mandate on new commercial diesel chassis.
                   </li>
                   <li style={{ padding: "0.5rem 0" }}>
-                    <strong>4.</strong> Requires an independent cost review before any future diesel rule
+                    <strong>4.</strong> Requires an independent cost review before any future diesel rule.
                   </li>
                 </ul>
               </div>
 
               <div className="mt-8 flex flex-wrap gap-4">
-                <a href="#act" className="btn-oxblood">
+                <a href="#rep-finder" className="btn-oxblood">
                   ★ Contact Your Rep
                 </a>
                 <a
@@ -627,7 +1478,7 @@ export default function HomePage() {
                   className="btn-gold"
                   style={{ boxShadow: "4px 4px 0 var(--dfc-navy)" }}
                 >
-                  Read The Bill
+                  Read The Bill ↗
                 </a>
               </div>
             </div>
@@ -635,55 +1486,198 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =========== TAKE ACTION CTAs =========== */}
-      <section className="section section-cream" id="act" style={{ paddingTop: 0 }}>
+      {/* =========== SIX EPA ACTIONS =========== */}
+      <section className="section section-cream" id="epa-actions">
+        <div className="container">
+          <div className="text-center mb-14">
+            <span className="section-eyebrow mb-6 inline-flex">The Full Plan</span>
+            <h2 className="section-title mt-6">
+              Six Actions For EPA.
+              <br />
+              <span style={{ color: "var(--dfc-oxblood)" }}>Performance, Not Hardware.</span>
+            </h2>
+            <p
+              className="mx-auto mt-6"
+              style={{
+                maxWidth: "52rem",
+                fontSize: "1.1rem",
+                lineHeight: 1.6,
+                color: "var(--dfc-navy)",
+                opacity: 0.82,
+              }}
+            >
+              H.R. 8079 is one front. The Diesel Freedom Coalition is asking EPA for full-stack reform. Enforcement discretion now. Performance-based standards next. No more hardware mandates. Clear pollution limits. Market solutions.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            {EPA_ACTIONS.map((a) => (
+              <div
+                key={a.num}
+                className="data-row"
+                style={{ borderBottom: "1px solid var(--dfc-border)" }}
+              >
+                <div className="flex items-start gap-5">
+                  <div
+                    className="font-stencil shrink-0"
+                    style={{
+                      fontSize: "2rem",
+                      color: "var(--dfc-oxblood)",
+                      lineHeight: 1,
+                      minWidth: "2.5rem",
+                    }}
+                  >
+                    {a.num.padStart(2, "0")}
+                  </div>
+                  <div>
+                    <div
+                      className="font-stencil"
+                      style={{
+                        fontSize: "1.2rem",
+                        color: "var(--dfc-navy)",
+                        letterSpacing: "0.04em",
+                        lineHeight: 1.25,
+                      }}
+                    >
+                      {a.title}
+                    </div>
+                    <p
+                      style={{
+                        fontSize: "0.95rem",
+                        lineHeight: 1.5,
+                        color: "var(--dfc-navy)",
+                        opacity: 0.82,
+                        marginTop: "0.5rem",
+                      }}
+                    >
+                      {a.desc}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="font-stencil text-right"
+                  style={{
+                    fontSize: "0.8rem",
+                    letterSpacing: "0.2em",
+                    color: "var(--dfc-oxblood)",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {a.timing}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* SAVED FUEL → STRATEGIC RESERVE / ALLIES */}
+          <div
+            className="mt-14 mx-auto"
+            style={{
+              maxWidth: "60rem",
+              border: "3px solid var(--dfc-navy)",
+              background: "rgba(27,42,74,0.05)",
+              padding: "2rem",
+              boxShadow: "8px 8px 0 var(--dfc-oxblood)",
+            }}
+          >
+            <p
+              className="font-stencil"
+              style={{
+                color: "var(--dfc-oxblood)",
+                letterSpacing: "0.22em",
+                fontSize: "0.78rem",
+              }}
+            >
+              ★ Where The Saved Fuel Goes
+            </p>
+            <p
+              className="mt-3"
+              style={{
+                fontSize: "1.05rem",
+                lineHeight: 1.65,
+                color: "var(--dfc-navy)",
+                opacity: 0.88,
+              }}
+            >
+              The world is scrambling for affordable energy. America is voluntarily discarding 25 percent of its diesel fleet&rsquo;s efficiency. Reform delivers a national windfall. Lower prices at every checkout, recovered fuel directed into the Strategic Petroleum Reserve, and surplus exports sold to allies who need American energy more than China does.
+            </p>
+            <p
+              className="font-stencil mt-4"
+              style={{
+                color: "var(--dfc-oxblood)",
+                fontSize: "0.7rem",
+                letterSpacing: "0.18em",
+              }}
+            >
+              Source: Diesel Freedom Coalition White Paper, April 2026
+            </p>
+          </div>
+
+          <div className="mt-12 text-center flex flex-wrap gap-4 justify-center">
+            <a
+              href={WHITE_PAPER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-oxblood"
+            >
+              ★ Read The Full White Paper
+            </a>
+            <a href="#act" className="btn-gold" style={{ boxShadow: "4px 4px 0 var(--dfc-navy)" }}>
+              Take Action
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* =========== TAKE ACTION =========== */}
+      <section className="section section-cream" id="act">
         <div className="container">
           <div className="text-center mb-14">
             <span className="section-eyebrow mb-6 inline-flex">★ Take Action</span>
             <h2 className="section-title mt-6">
-              Three Ways to
+              Three Ways To
               <br />
               <span style={{ color: "var(--dfc-oxblood)" }}>Push Back.</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
             <div className="cta-card">
               <div className="cta-card-number">01</div>
-              <h3 className="cta-card-title">Donate</h3>
+              <h3 className="cta-card-title">Sign The Petition</h3>
               <p className="cta-card-body">
-                Fund billboards, fund ads, fund the fight. Every dollar goes to advocacy, legal defense, and getting Troy and other owner-operators in front of Congress. No salaries. No overhead skimming.
+                Add your name to the growing list of truckers, farmers, ranchers, shop owners, and Americans who are done paying the compliance tax. Delivered to Congress monthly.
               </p>
-              <a href="#donate-form" className="btn-oxblood">
-                ★ Give Now
+              <a href="#petition-form" className="btn-oxblood">
+                ★ Sign Now
               </a>
             </div>
 
             <div className="cta-card">
               <div className="cta-card-number">02</div>
-              <h3 className="cta-card-title">Support H.R. 8079</h3>
+              <h3 className="cta-card-title">Donate</h3>
               <p className="cta-card-body">
-                Contact your House Representative and your Senators. Ask them to co-sponsor H.R. 8079 and the Senate companion. We make the call easy. We write the script. You dial.
+                Fund billboards, fund ads, fund the fight. Every dollar goes to advocacy, legal defense, and getting Troy and other owner-operators in front of Congress. No salaries, no overhead skimming.
               </p>
-              <a href="#contact-form" className="btn-oxblood">
-                ★ Contact My Rep
+              <a href="#donate-form" className="btn-oxblood">
+                ★ Give
               </a>
             </div>
 
             <div className="cta-card">
               <div className="cta-card-number">03</div>
-              <h3 className="cta-card-title">Sign The Petition</h3>
+              <h3 className="cta-card-title">Contact Your Rep</h3>
               <p className="cta-card-body">
-                Add your name to the growing list of truckers, farmers, ranchers, shop owners, and Americans who are done paying the compliance tax. Public. Delivered to Congress monthly.
+                Ask your House Representative and your Senators to co-sponsor H.R. 8079 and the Senate companion. We make the call easy. We write the script. You dial.
               </p>
-              <a href="#petition-form" className="btn-oxblood">
-                ★ Sign The Petition
+              <a href="#rep-finder" className="btn-oxblood">
+                ★ Find My Rep
               </a>
             </div>
           </div>
 
           {/* PETITION FORM */}
-          <div className="mt-20 max-w-3xl mx-auto" id="petition-form">
+          <div className="max-w-3xl mx-auto mb-16" id="petition-form">
             <div className="bill-card">
               <span className="section-eyebrow mb-5 inline-flex">Sign The Petition</span>
               <h3
@@ -718,6 +1712,21 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
+                  <label className="dfc-label" htmlFor="occupation">Occupation</label>
+                  <select id="occupation" name="occupation" className="dfc-input" required defaultValue="">
+                    <option value="" disabled>Select your role</option>
+                    <option value="trucker">Trucker</option>
+                    <option value="owner-operator">Owner-Operator</option>
+                    <option value="farmer">Farmer</option>
+                    <option value="rancher">Rancher</option>
+                    <option value="fleet-manager">Fleet Manager</option>
+                    <option value="shop-owner">Shop Owner</option>
+                    <option value="mechanic">Mechanic</option>
+                    <option value="concerned-citizen">Concerned Citizen</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div>
                   <label className="dfc-label" htmlFor="reason">Why You Signed (optional)</label>
                   <textarea id="reason" name="reason" rows={3} className="dfc-input" />
                 </div>
@@ -727,6 +1736,81 @@ export default function HomePage() {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+
+          {/* DONATE */}
+          <div className="max-w-3xl mx-auto mb-16" id="donate-form">
+            <div className="bill-card">
+              <span className="section-eyebrow mb-5 inline-flex">Donate</span>
+              <h3
+                className="font-stencil mt-5 mb-2"
+                style={{ fontSize: "1.75rem", color: "var(--dfc-navy)" }}
+              >
+                Fund The Fight.
+              </h3>
+              <p style={{ marginBottom: "1.25rem", opacity: 0.85, fontSize: "1rem", lineHeight: 1.6 }}>
+                Online payment processing is being stood up. In the meantime, contact the coalition directly to discuss donations, sponsorships, and event partnerships. Every dollar funds advocacy, legal defense, billboards, and getting owner-operators in front of Congress.
+              </p>
+              <div
+                style={{
+                  borderTop: "2px solid var(--dfc-navy)",
+                  paddingTop: "1.25rem",
+                  marginTop: "1.25rem",
+                }}
+              >
+                <p
+                  className="font-stencil"
+                  style={{
+                    color: "var(--dfc-oxblood)",
+                    letterSpacing: "0.2em",
+                    fontSize: "0.72rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Contact To Give
+                </p>
+                <a
+                  href="mailto:info@dieselfreedomcoalition.com"
+                  className="font-stencil"
+                  style={{
+                    color: "var(--dfc-navy)",
+                    fontSize: "1.15rem",
+                    letterSpacing: "0.05em",
+                    textDecoration: "underline",
+                  }}
+                >
+                  info@dieselfreedomcoalition.com
+                </a>
+              </div>
+              <p
+                className="font-stencil mt-5"
+                style={{
+                  color: "var(--dfc-navy)",
+                  opacity: 0.7,
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.14em",
+                }}
+              >
+                Paid for by the Diesel Freedom Coalition. Not deductible as a charitable contribution for federal income tax purposes.
+              </p>
+            </div>
+          </div>
+
+          {/* REP FINDER */}
+          <div className="max-w-3xl mx-auto" id="rep-finder">
+            <div className="bill-card">
+              <span className="section-eyebrow mb-5 inline-flex">Contact Your Rep</span>
+              <h3
+                className="font-stencil mt-5 mb-2"
+                style={{ fontSize: "1.75rem", color: "var(--dfc-navy)" }}
+              >
+                Make The Call.
+              </h3>
+              <p style={{ marginBottom: "1.75rem", opacity: 0.85 }}>
+                Enter your ZIP, open your House Rep&rsquo;s contact page, copy the script, and dial. Calls carry more weight than emails every time.
+              </p>
+              <RepFinder />
             </div>
           </div>
         </div>
@@ -743,7 +1827,7 @@ export default function HomePage() {
               margin: 0,
             }}
           >
-            ★ The Road Runs on Diesel. So Does America. ★
+            ★ The Road Runs On Diesel. So Does America. ★
           </p>
         </div>
       </div>
@@ -781,8 +1865,13 @@ export default function HomePage() {
               </p>
               <ul style={{ listStyle: "none", padding: 0, opacity: 0.82 }}>
                 <li style={{ padding: "0.35rem 0" }}>
+                  <a href="#supply" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
+                    Supply Chain
+                  </a>
+                </li>
+                <li style={{ padding: "0.35rem 0" }}>
                   <a href="#mandate" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
-                    The Mandate Breakdown
+                    The Mandate
                   </a>
                 </li>
                 <li style={{ padding: "0.35rem 0" }}>
@@ -793,6 +1882,21 @@ export default function HomePage() {
                 <li style={{ padding: "0.35rem 0" }}>
                   <a href="#bill" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
                     H.R. 8079
+                  </a>
+                </li>
+                <li style={{ padding: "0.35rem 0" }}>
+                  <a href="#epa-actions" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
+                    Six Actions For EPA
+                  </a>
+                </li>
+                <li style={{ padding: "0.35rem 0" }}>
+                  <a
+                    href={WHITE_PAPER_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "var(--dfc-gold)", textDecoration: "none" }}
+                  >
+                    White Paper ↗
                   </a>
                 </li>
                 <li style={{ padding: "0.35rem 0" }}>

@@ -551,6 +551,58 @@ body {
 }
 
 /* ===================================================
+   POSTER DISPLAY
+   =================================================== */
+
+.poster-frame {
+  border: 3px solid var(--dfc-navy);
+  box-shadow: 6px 6px 0 var(--dfc-oxblood);
+  overflow: hidden;
+  background: var(--dfc-navy);
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+.poster-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.section-navy .poster-frame {
+  border-color: var(--dfc-gold);
+  box-shadow: 6px 6px 0 rgba(200, 151, 58, 0.5);
+}
+
+.poster-split {
+  display: grid;
+  gap: 3rem 4rem;
+  align-items: center;
+}
+.poster-split-2col {
+  grid-template-columns: 1fr 1fr;
+}
+.poster-split-wide-text {
+  grid-template-columns: minmax(0, 380px) 1fr;
+}
+.poster-split-wide-text.reverse {
+  grid-template-columns: 1fr minmax(0, 380px);
+}
+
+@media (max-width: 900px) {
+  .poster-split,
+  .poster-split-2col,
+  .poster-split-wide-text,
+  .poster-split-wide-text.reverse {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .poster-split-wide-text.reverse .poster-frame {
+    order: -1;
+  }
+}
+
+/* ===================================================
    MOBILE
    =================================================== */
 
