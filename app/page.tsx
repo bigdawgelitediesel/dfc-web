@@ -206,27 +206,6 @@ export default function HomePage() {
               <br className="hidden md:inline" /> barrel, and bushel moves on American diesel.
             </p>
 
-            {/* POSTER BOOKEND: 01 produces / 02 stops */}
-            <div
-              className="grid sm:grid-cols-2 gap-6 mx-auto my-12"
-              style={{ maxWidth: "1050px" }}
-            >
-              <figure className="poster-frame">
-                <img
-                  src="/posters/01-america-produces.png"
-                  alt="America Produces. Diesel moves it all. U.S. map with industries linked by diesel supply chain."
-                  loading="eager"
-                />
-              </figure>
-              <figure className="poster-frame">
-                <img
-                  src="/posters/02-america-stops.png"
-                  alt="America Stops. Without diesel, nothing moves. Empty U.S. map with industry icons darkened."
-                  loading="eager"
-                />
-              </figure>
-            </div>
-
             <p
               className="mx-auto mb-12"
               style={{
@@ -295,47 +274,126 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="poster-split poster-split-2col mb-14">
-            <figure className="poster-frame">
-              <img
-                src="/posters/03-field-to-fridge.png"
-                alt="Field to Fridge: milk supply chain from dairy farm to grocery store, every step powered by diesel."
-                loading="lazy"
-              />
-              <figcaption
-                className="font-stencil"
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-14">
+            {[
+              {
+                title: "Field To Fridge",
+                subtitle: "Every step runs on diesel.",
+                steps: [
+                  { n: 1, label: "Hay Cutting", pct: "5%" },
+                  { n: 2, label: "Baling", pct: "11%" },
+                  { n: 3, label: "Hauling", pct: "18%" },
+                  { n: 4, label: "Dairy Farm", pct: "26%" },
+                  { n: 5, label: "Milk Transport", pct: "34%" },
+                  { n: 6, label: "Pasteurization", pct: "42%" },
+                  { n: 7, label: "Bottling", pct: "49%" },
+                  { n: 8, label: "Distribution", pct: "56%" },
+                  { n: 9, label: "At The Store", pct: "63%" },
+                ],
+                footer: "By the time a gallon of milk hits the shelf, 63% of its cost has been diesel.",
+              },
+              {
+                title: "Well To Pump",
+                subtitle: "Every step runs on diesel.",
+                steps: [
+                  { n: 1, label: "Exploration", pct: "7%" },
+                  { n: 2, label: "Drilling", pct: "16%" },
+                  { n: 3, label: "Hauling Crude", pct: "27%" },
+                  { n: 4, label: "Refining", pct: "38%" },
+                  { n: 5, label: "Distribution", pct: "49%" },
+                  { n: 6, label: "At The Pump", pct: "58%" },
+                ],
+                footer: "Diesel even powers the fuel that ends up in your tank. 58% at the pump.",
+              },
+            ].map((block) => (
+              <div
+                key={block.title}
                 style={{
-                  background: "var(--dfc-navy)",
-                  color: "var(--dfc-cream)",
-                  padding: "0.75rem 1rem",
-                  fontSize: "0.78rem",
-                  letterSpacing: "0.18em",
-                  textAlign: "center",
+                  border: "3px solid var(--dfc-navy)",
+                  background: "var(--dfc-cream)",
+                  padding: "1.75rem 1.5rem",
+                  boxShadow: "6px 6px 0 var(--dfc-oxblood)",
                 }}
               >
-                Field to Fridge
-              </figcaption>
-            </figure>
-            <figure className="poster-frame">
-              <img
-                src="/posters/04-well-to-pump.png"
-                alt="Well to Pump: fuel supply chain from oilfield to gas station, every step powered by diesel."
-                loading="lazy"
-              />
-              <figcaption
-                className="font-stencil"
-                style={{
-                  background: "var(--dfc-navy)",
-                  color: "var(--dfc-cream)",
-                  padding: "0.75rem 1rem",
-                  fontSize: "0.78rem",
-                  letterSpacing: "0.18em",
-                  textAlign: "center",
-                }}
-              >
-                Well to Pump
-              </figcaption>
-            </figure>
+                <p
+                  className="font-stencil"
+                  style={{
+                    color: "var(--dfc-oxblood)",
+                    letterSpacing: "0.22em",
+                    fontSize: "0.78rem",
+                    marginBottom: "0.25rem",
+                  }}
+                >
+                  {block.subtitle}
+                </p>
+                <h3
+                  className="font-stencil"
+                  style={{
+                    color: "var(--dfc-navy)",
+                    fontSize: "clamp(1.6rem, 3vw, 2rem)",
+                    lineHeight: 1.1,
+                    marginBottom: "1.25rem",
+                  }}
+                >
+                  {block.title}
+                </h3>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                  {block.steps.map((s, i) => (
+                    <li
+                      key={s.n}
+                      style={{
+                        display: "flex",
+                        alignItems: "baseline",
+                        gap: "1rem",
+                        padding: "0.55rem 0",
+                        borderBottom:
+                          i === block.steps.length - 1
+                            ? "none"
+                            : "1px solid var(--dfc-border)",
+                      }}
+                    >
+                      <span
+                        className="font-stencil"
+                        style={{
+                          color: "var(--dfc-oxblood)",
+                          fontSize: "0.85rem",
+                          letterSpacing: "0.1em",
+                          minWidth: "1.75rem",
+                        }}
+                      >
+                        {s.n}.
+                      </span>
+                      <span style={{ flex: 1, fontSize: "1rem", color: "var(--dfc-navy)" }}>
+                        {s.label}
+                      </span>
+                      <span
+                        className="font-stencil"
+                        style={{
+                          color: "var(--dfc-navy)",
+                          fontSize: "1rem",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {s.pct}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <p
+                  style={{
+                    marginTop: "1.25rem",
+                    fontSize: "0.92rem",
+                    lineHeight: 1.5,
+                    color: "var(--dfc-navy)",
+                    opacity: 0.82,
+                    borderTop: "2px solid var(--dfc-navy)",
+                    paddingTop: "1rem",
+                  }}
+                >
+                  {block.footer}
+                </p>
+              </div>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
@@ -366,14 +424,7 @@ export default function HomePage() {
       {/* =========== COMPLIANCE TAX =========== */}
       <section className="section section-navy">
         <div className="container">
-          <div className="poster-split poster-split-wide-text">
-            <figure className="poster-frame">
-              <img
-                src="/posters/08-compliance-tax.png"
-                alt="The Compliance Tax: $25,000 a year per truck, $125,000 over five years. The weight and the burn of EPA mandates."
-                loading="lazy"
-              />
-            </figure>
+          <div className="max-w-4xl mx-auto">
             <div>
               <span className="section-eyebrow mb-6 inline-flex">The Compliance Tax</span>
               <h2 className="section-title section-title-cream mt-6 mb-5">
@@ -403,6 +454,75 @@ export default function HomePage() {
               >
                 The weight is DEF fluid, aftertreatment boxes, dosers, and sensors. The burn is active regens, fuel penalties, and downtime at the dealer. It never stops adding up.
               </p>
+
+              <div className="grid sm:grid-cols-2 gap-5 mb-8">
+                <div
+                  style={{
+                    border: "2px solid var(--dfc-gold)",
+                    padding: "1.5rem",
+                    background: "rgba(200,151,58,0.05)",
+                  }}
+                >
+                  <p
+                    className="font-stencil"
+                    style={{
+                      color: "var(--dfc-gold)",
+                      letterSpacing: "0.22em",
+                      fontSize: "0.75rem",
+                      marginBottom: "0.75rem",
+                    }}
+                  >
+                    The Weight
+                  </p>
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      padding: 0,
+                      margin: 0,
+                      fontSize: "0.95rem",
+                      lineHeight: 1.55,
+                      color: "var(--dfc-cream)",
+                    }}
+                  >
+                    <li style={{ padding: "0.35rem 0" }}>~650 LB of aftertreatment and DEF on every new Class 8.</li>
+                    <li style={{ padding: "0.35rem 0" }}>720+ LB on legacy pre-2017 trucks.</li>
+                    <li style={{ padding: "0.35rem 0" }}>Equal to a full pallet of freight you cannot haul, every trip, every day.</li>
+                  </ul>
+                </div>
+                <div
+                  style={{
+                    border: "2px solid var(--dfc-gold)",
+                    padding: "1.5rem",
+                    background: "rgba(200,151,58,0.05)",
+                  }}
+                >
+                  <p
+                    className="font-stencil"
+                    style={{
+                      color: "var(--dfc-gold)",
+                      letterSpacing: "0.22em",
+                      fontSize: "0.75rem",
+                      marginBottom: "0.75rem",
+                    }}
+                  >
+                    The Burn
+                  </p>
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      padding: 0,
+                      margin: 0,
+                      fontSize: "0.95rem",
+                      lineHeight: 1.55,
+                      color: "var(--dfc-cream)",
+                    }}
+                  >
+                    <li style={{ padding: "0.35rem 0" }}>Up to 3 MPG lost to aftertreatment drag.</li>
+                    <li style={{ padding: "0.35rem 0" }}>2 to 3 percent of every gallon burned as DEF.</li>
+                    <li style={{ padding: "0.35rem 0" }}>0.5 to 1.5 gallons of diesel torched per regen, every 300 to 500 miles.</li>
+                  </ul>
+                </div>
+              </div>
 
               <div className="grid sm:grid-cols-2 gap-5">
                 <div
@@ -494,7 +614,7 @@ export default function HomePage() {
       {/* =========== NONE OF THIS IS NEEDED. TRUCK =========== */}
       <section className="section section-cream" id="mandate">
         <div className="container">
-          <div className="poster-split poster-split-wide-text reverse">
+          <div className="max-w-4xl mx-auto">
             <div>
               <span className="section-eyebrow mb-6 inline-flex">None Of This Is Needed</span>
               <h2 className="section-title mt-6 mb-5">
@@ -600,14 +720,6 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
-
-            <figure className="poster-frame">
-              <img
-                src="/posters/07-none-needed-truck.png"
-                alt="None of this is needed: a diesel truck with 8 mandated components callouts totaling $60,800 lifetime."
-                loading="lazy"
-              />
-            </figure>
           </div>
         </div>
       </section>
@@ -615,14 +727,7 @@ export default function HomePage() {
       {/* =========== LIMP HOME =========== */}
       <section className="section section-navy">
         <div className="container">
-          <div className="poster-split poster-split-wide-text">
-            <figure className="poster-frame">
-              <img
-                src="/posters/09-limp-home.png"
-                alt="Limp Home: one bad sensor drops a Class 8 truck to 5 MPH within 150 miles. Dead on the interstate."
-                loading="lazy"
-              />
-            </figure>
+          <div className="max-w-4xl mx-auto">
             <div>
               <span className="section-eyebrow mb-6 inline-flex">Limp Home Mode</span>
               <h2 className="section-title section-title-cream mt-6 mb-5">
@@ -647,11 +752,71 @@ export default function HomePage() {
                   lineHeight: 1.6,
                   color: "var(--dfc-cream)",
                   opacity: 0.78,
-                  marginBottom: "2rem",
+                  marginBottom: "1.5rem",
                 }}
               >
                 This is what the mandate actually produces. A truck that shuts itself down to protect a part the government said had to be there in the first place.
               </p>
+
+              <div
+                style={{
+                  border: "2px solid var(--dfc-gold)",
+                  padding: "1.5rem",
+                  background: "rgba(200,151,58,0.05)",
+                  marginBottom: "2rem",
+                }}
+              >
+                <p
+                  className="font-stencil"
+                  style={{
+                    color: "var(--dfc-gold)",
+                    letterSpacing: "0.22em",
+                    fontSize: "0.75rem",
+                    marginBottom: "0.75rem",
+                  }}
+                >
+                  The Rule. 40 CFR 1036.111.
+                </p>
+                <p
+                  style={{
+                    fontSize: "1rem",
+                    lineHeight: 1.6,
+                    color: "var(--dfc-cream)",
+                    opacity: 0.9,
+                    marginBottom: "0.75rem",
+                  }}
+                >
+                  Federal law forces a progressive engine de-rate on any DEF fault. It is not a manufacturer decision. It is a rule the EPA wrote and bolted to every Class 8 ECU.
+                </p>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                    fontSize: "0.95rem",
+                    lineHeight: 1.55,
+                    color: "var(--dfc-cream)",
+                    opacity: 0.88,
+                  }}
+                >
+                  <li style={{ padding: "0.35rem 0" }}>Warning lamp at the first fault.</li>
+                  <li style={{ padding: "0.35rem 0" }}>25 percent torque cut next.</li>
+                  <li style={{ padding: "0.35rem 0" }}>5 MPH limp mode in as little as 150 miles.</li>
+                </ul>
+                <p
+                  className="font-serif-display"
+                  style={{
+                    fontStyle: "italic",
+                    color: "var(--dfc-gold)",
+                    fontSize: "1rem",
+                    lineHeight: 1.5,
+                    marginTop: "1rem",
+                    opacity: 0.95,
+                  }}
+                >
+                  Federal law treats the truck as guilty until proven innocent. So it pulls you over for them.
+                </p>
+              </div>
 
               <div className="grid sm:grid-cols-3 gap-4">
                 {[
@@ -710,7 +875,7 @@ export default function HomePage() {
       {/* =========== PLASTIC FOR A CLEANER PLANET =========== */}
       <section className="section section-cream">
         <div className="container">
-          <div className="poster-split poster-split-wide-text reverse">
+          <div className="max-w-4xl mx-auto">
             <div>
               <span className="section-eyebrow mb-6 inline-flex">Plastic For A Cleaner Planet</span>
               <h2 className="section-title mt-6 mb-5">
@@ -722,12 +887,12 @@ export default function HomePage() {
                 style={{
                   fontSize: "1.1rem",
                   lineHeight: 1.65,
-                  marginBottom: "1.5rem",
+                  marginBottom: "1.25rem",
                   color: "var(--dfc-navy)",
                   opacity: 0.88,
                 }}
               >
-                DEF is sold as an environmental solution. The checkout counter tells a different story. 125 million plastic jugs of urea water a year, manufactured from natural gas, trucked cross-country, poured into exhaust streams, and thrown away. Ninety percent never get recycled.
+                DEF is sold as an environmental solution. The checkout counter tells a different story. 125 million plastic jugs of urea water a year, manufactured from natural gas, trucked cross-country, poured into exhaust streams, and thrown away. Ninety percent never get recycled. Americans throw out enough empty DEF containers every year to pave 1,100 football fields.
               </p>
               <p
                 style={{
@@ -787,14 +952,6 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-
-            <figure className="poster-frame">
-              <img
-                src="/posters/10-plastic-cleaner-planet.png"
-                alt="Plastic for a Cleaner Planet: 125 million DEF jugs per year, 47,000 tons of plastic, 90% landfilled."
-                loading="lazy"
-              />
-            </figure>
           </div>
         </div>
       </section>
@@ -802,14 +959,7 @@ export default function HomePage() {
       {/* =========== DIRT TO DEAD METAL =========== */}
       <section className="section section-navy">
         <div className="container">
-          <div className="poster-split poster-split-wide-text">
-            <figure className="poster-frame">
-              <img
-                src="/posters/06-dirt-to-dead-metal.png"
-                alt="Dirt to Dead Metal: rare earth mining abroad, catalysts and sensors installed on American trucks, foreign mines paying American bills."
-                loading="lazy"
-              />
-            </figure>
+          <div className="max-w-4xl mx-auto">
             <div>
               <span className="section-eyebrow mb-6 inline-flex">Dirt To Dead Metal</span>
               <h2 className="section-title section-title-cream mt-6 mb-5">
@@ -841,6 +991,72 @@ export default function HomePage() {
               </p>
 
               <div
+                className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6"
+              >
+                {[
+                  { metal: "Platinum", country: "South Africa", share: "71%" },
+                  { metal: "Palladium", country: "Russia", share: "38%" },
+                  { metal: "Rhodium", country: "South Africa", share: "~80%" },
+                  { metal: "Rare Earths", country: "China", share: "~90%" },
+                ].map((m) => (
+                  <div
+                    key={m.metal}
+                    style={{
+                      border: "2px solid var(--dfc-gold)",
+                      background: "rgba(200,151,58,0.08)",
+                      padding: "1rem 0.85rem",
+                      textAlign: "center",
+                    }}
+                  >
+                    <p
+                      className="font-stencil"
+                      style={{
+                        color: "var(--dfc-gold)",
+                        fontSize: "0.68rem",
+                        letterSpacing: "0.18em",
+                        marginBottom: "0.35rem",
+                      }}
+                    >
+                      {m.metal}
+                    </p>
+                    <p
+                      className="font-stencil"
+                      style={{
+                        color: "var(--dfc-cream)",
+                        fontSize: "clamp(1.4rem, 3vw, 1.85rem)",
+                        lineHeight: 1,
+                      }}
+                    >
+                      {m.share}
+                    </p>
+                    <p
+                      className="font-stencil mt-2"
+                      style={{
+                        color: "var(--dfc-gold)",
+                        fontSize: "0.6rem",
+                        letterSpacing: "0.14em",
+                        opacity: 0.88,
+                      }}
+                    >
+                      {m.country}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <p
+                style={{
+                  fontSize: "0.95rem",
+                  lineHeight: 1.55,
+                  color: "var(--dfc-cream)",
+                  opacity: 0.82,
+                  marginBottom: "1.5rem",
+                }}
+              >
+                Refinery and factory: precious-metal washcoat sprayed onto ceramic, sintered, boxed, shipped. Then bolted onto the truck as DPF, DOC, SCR, and a DEF injector. Sticker hit per new truck, $30,000+. Average life: 200,000 to 400,000 miles before something fails. Then it starts over.
+              </p>
+
+              <div
                 style={{
                   border: "2px solid var(--dfc-gold)",
                   padding: "1.5rem",
@@ -855,7 +1071,7 @@ export default function HomePage() {
                     fontSize: "0.72rem",
                   }}
                 >
-                  China&rsquo;s Share of Rare Earth Mining
+                  Replacement Cost Across The Stack
                 </p>
                 <p
                   className="font-stencil"
@@ -866,7 +1082,7 @@ export default function HomePage() {
                     margin: "0.5rem 0",
                   }}
                 >
-                  60–70%
+                  $42,800+
                 </p>
                 <p
                   className="font-stencil"
@@ -877,7 +1093,7 @@ export default function HomePage() {
                     opacity: 0.85,
                   }}
                 >
-                  Source: USGS, DOE Critical Materials Assessment
+                  $11,000+ per DPF alone. Source: OEM Dealer Pricing, 2026
                 </p>
               </div>
             </div>
@@ -888,7 +1104,7 @@ export default function HomePage() {
       {/* =========== ELIMINATE THE MANDATE =========== */}
       <section className="section section-cream">
         <div className="container">
-          <div className="poster-split poster-split-wide-text reverse">
+          <div className="max-w-4xl mx-auto">
             <div>
               <span className="section-eyebrow mb-6 inline-flex">Eliminate The Mandate</span>
               <h2 className="section-title mt-6 mb-5">
@@ -949,14 +1165,6 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
-
-            <figure className="poster-frame">
-              <img
-                src="/posters/05-none-needed-def.png"
-                alt="None of this is needed: the entire DEF supply chain exists only because of the EPA mandate. Eliminate the mandate."
-                loading="lazy"
-              />
-            </figure>
           </div>
         </div>
       </section>
