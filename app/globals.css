@@ -424,6 +424,7 @@ body {
 
 .bill-card {
   background: var(--dfc-cream);
+  color: var(--dfc-navy);
   border: 3px solid var(--dfc-navy);
   padding: 2.5rem;
   box-shadow: 8px 8px 0 var(--dfc-oxblood);
