@@ -179,8 +179,10 @@ body {
   position: relative;
   min-height: 100vh;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(200,151,58,0.08) 0%, transparent 70%),
-    linear-gradient(180deg, var(--dfc-navy-2) 0%, var(--dfc-navy) 50%, var(--dfc-navy-3) 100%);
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(200,151,58,0.10) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(15,26,51,0.82) 0%, rgba(27,42,74,0.78) 50%, rgba(10,18,38,0.88) 100%),
+    url("/truck-hero.jpg") center/cover no-repeat,
+    var(--dfc-navy);
   color: var(--dfc-cream);
   overflow: hidden;
   display: flex;
