@@ -422,7 +422,7 @@ export default function HomePage() {
       </section>
 
       {/* =========== COMPLIANCE TAX =========== */}
-      <section className="section section-navy">
+      <section className="section section-navy section-compliance-ghost">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div>
@@ -725,7 +725,7 @@ export default function HomePage() {
       </section>
 
       {/* =========== LIMP HOME =========== */}
-      <section className="section section-navy">
+      <section className="section section-navy section-limp-ghost">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div>
@@ -957,7 +957,7 @@ export default function HomePage() {
       </section>
 
       {/* =========== DIRT TO DEAD METAL =========== */}
-      <section className="section section-navy">
+      <section className="section section-navy section-mines-ghost">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div>
@@ -1318,7 +1318,7 @@ export default function HomePage() {
       </section>
 
       {/* =========== WHAT WE WON / WHAT IS LEFT =========== */}
-      <section className="section section-navy">
+      <section className="section section-navy section-farm-ghost">
         <div className="container">
           <div className="text-center mb-14">
             <span className="section-eyebrow mb-6 inline-flex">Gratitude And Unfinished Work</span>
@@ -1582,7 +1582,7 @@ export default function HomePage() {
       </section>
 
       {/* =========== H.R. 8079 BILL CARD =========== */}
-      <section className="section section-navy" id="bill">
+      <section className="section section-navy section-capitol-ghost" id="bill">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="bill-card">

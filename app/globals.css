@@ -265,6 +265,46 @@ body {
   position: relative;
 }
 
+.section-farm-ghost {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(200,151,58,0.10) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(15,26,51,0.82) 0%, rgba(27,42,74,0.78) 50%, rgba(10,18,38,0.88) 100%),
+    url("/farm-hero.jpg") center/cover no-repeat,
+    var(--dfc-navy);
+}
+
+.section-compliance-ghost {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(200,151,58,0.10) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(15,26,51,0.82) 0%, rgba(27,42,74,0.78) 50%, rgba(10,18,38,0.88) 100%),
+    url("/compliance-hero.jpg") center/cover no-repeat,
+    var(--dfc-navy);
+}
+
+.section-limp-ghost {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(200,151,58,0.10) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(15,26,51,0.82) 0%, rgba(27,42,74,0.78) 50%, rgba(10,18,38,0.88) 100%),
+    url("/limp-hero.jpg") center/cover no-repeat,
+    var(--dfc-navy);
+}
+
+.section-mines-ghost {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(200,151,58,0.10) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(15,26,51,0.82) 0%, rgba(27,42,74,0.78) 50%, rgba(10,18,38,0.88) 100%),
+    url("/mines-hero.jpg") center/cover no-repeat,
+    var(--dfc-navy);
+}
+
+.section-capitol-ghost {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(200,151,58,0.10) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(15,26,51,0.82) 0%, rgba(27,42,74,0.78) 50%, rgba(10,18,38,0.88) 100%),
+    url("/capitol-hero.jpg") center/cover no-repeat,
+    var(--dfc-navy);
+}
+
 .stat-card {
   background: var(--dfc-cream);
   border: 2px solid var(--dfc-navy);
