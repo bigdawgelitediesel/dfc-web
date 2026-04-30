@@ -1,5 +1,3 @@
-import RepFinder from "./components/RepFinder";
-
 const WHITE_PAPER_URL =
   "https://docs.google.com/document/u/0/d/19uFDcfguCnQX5ERSFsZp0_eCygRuYk06YojRwG72TG4/mobilebasic";
 
@@ -165,7 +163,9 @@ export default function HomePage() {
               H.R. 8079
             </a>
             <a
-              href="#act"
+              href="https://secure.anedot.com/diesel-freedom-coalition/freedom_donation"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-gold"
               style={{ padding: "0.6rem 1.1rem", fontSize: "0.8rem", boxShadow: "3px 3px 0 var(--dfc-oxblood)" }}
             >
@@ -220,14 +220,13 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center">
-              <a href="#petition-form" className="btn-gold">
-                ★ Sign The Petition
-              </a>
-              <a href="#rep-finder" className="btn-oxblood">
-                ★ Contact Your Rep
-              </a>
-              <a href="#donate-form" className="btn-outline-cream">
-                Donate
+              <a
+                href="https://secure.anedot.com/diesel-freedom-coalition/freedom_donation"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-gold"
+              >
+                ★ Donate Now
               </a>
             </div>
           </div>
@@ -1676,9 +1675,6 @@ export default function HomePage() {
               </div>
 
               <div className="mt-8 flex flex-wrap gap-4">
-                <a href="#rep-finder" className="btn-oxblood">
-                  ★ Contact Your Rep
-                </a>
                 <a
                   href="https://www.congress.gov/bill/119th-congress/house-bill/8079"
                   target="_blank"
@@ -1830,7 +1826,13 @@ export default function HomePage() {
             >
               ★ Read The Full White Paper
             </a>
-            <a href="#act" className="btn-gold" style={{ boxShadow: "4px 4px 0 var(--dfc-navy)" }}>
+            <a
+              href="https://secure.anedot.com/diesel-freedom-coalition/freedom_donation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-gold"
+              style={{ boxShadow: "4px 4px 0 var(--dfc-navy)" }}
+            >
               Take Action
             </a>
           </div>
@@ -1843,112 +1845,12 @@ export default function HomePage() {
           <div className="text-center mb-14">
             <span className="section-eyebrow mb-6 inline-flex">★ Take Action</span>
             <h2 className="section-title mt-6">
-              Three Ways To
-              <br />
               <span style={{ color: "var(--dfc-oxblood)" }}>Push Back.</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
-            <div className="cta-card">
-              <div className="cta-card-number">01</div>
-              <h3 className="cta-card-title">Sign The Petition</h3>
-              <p className="cta-card-body">
-                Add your name to the growing list of truckers, farmers, ranchers, shop owners, and Americans who are done paying the compliance tax. Delivered to Congress monthly.
-              </p>
-              <a href="#petition-form" className="btn-oxblood">
-                ★ Sign Now
-              </a>
-            </div>
-
-            <div className="cta-card">
-              <div className="cta-card-number">02</div>
-              <h3 className="cta-card-title">Donate</h3>
-              <p className="cta-card-body">
-                Fund billboards, fund ads, fund the fight. Every dollar goes to advocacy, legal defense, and getting Troy and other owner-operators in front of Congress. No salaries, no overhead skimming.
-              </p>
-              <a href="#donate-form" className="btn-oxblood">
-                ★ Give
-              </a>
-            </div>
-
-            <div className="cta-card">
-              <div className="cta-card-number">03</div>
-              <h3 className="cta-card-title">Contact Your Rep</h3>
-              <p className="cta-card-body">
-                Ask your House Representative and your Senators to co-sponsor H.R. 8079 and the Senate companion. We make the call easy. We write the script. You dial.
-              </p>
-              <a href="#rep-finder" className="btn-oxblood">
-                ★ Find My Rep
-              </a>
-            </div>
-          </div>
-
-          {/* PETITION FORM */}
-          <div className="max-w-3xl mx-auto mb-16" id="petition-form">
-            <div className="bill-card">
-              <span className="section-eyebrow mb-5 inline-flex">Sign The Petition</span>
-              <h3
-                className="font-stencil mt-5 mb-2"
-                style={{ fontSize: "1.75rem", color: "var(--dfc-navy)" }}
-              >
-                Add Your Name.
-              </h3>
-              <p style={{ marginBottom: "1.75rem", opacity: 0.85 }}>
-                Delivered monthly to the House Energy and Commerce Committee and every co-sponsor office. Your name, your state, your reason. That is it.
-              </p>
-
-              <form className="grid gap-4" action="#petition-form" method="post">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="dfc-label" htmlFor="first">First Name</label>
-                    <input id="first" name="first" className="dfc-input" required />
-                  </div>
-                  <div>
-                    <label className="dfc-label" htmlFor="last">Last Name</label>
-                    <input id="last" name="last" className="dfc-input" required />
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="dfc-label" htmlFor="email">Email</label>
-                    <input id="email" name="email" type="email" className="dfc-input" required />
-                  </div>
-                  <div>
-                    <label className="dfc-label" htmlFor="state">State</label>
-                    <input id="state" name="state" placeholder="WY" className="dfc-input" required />
-                  </div>
-                </div>
-                <div>
-                  <label className="dfc-label" htmlFor="occupation">Occupation</label>
-                  <select id="occupation" name="occupation" className="dfc-input" required defaultValue="">
-                    <option value="" disabled>Select your role</option>
-                    <option value="trucker">Trucker</option>
-                    <option value="owner-operator">Owner-Operator</option>
-                    <option value="farmer">Farmer</option>
-                    <option value="rancher">Rancher</option>
-                    <option value="fleet-manager">Fleet Manager</option>
-                    <option value="shop-owner">Shop Owner</option>
-                    <option value="mechanic">Mechanic</option>
-                    <option value="concerned-citizen">Concerned Citizen</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="dfc-label" htmlFor="reason">Why You Signed (optional)</label>
-                  <textarea id="reason" name="reason" rows={3} className="dfc-input" />
-                </div>
-                <div className="mt-2">
-                  <button type="submit" className="btn-oxblood">
-                    ★ Sign The Petition
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-
           {/* DONATE */}
-          <div className="max-w-3xl mx-auto mb-16" id="donate-form">
+          <div className="max-w-3xl mx-auto" id="donate-form">
             <div className="bill-card">
               <span className="section-eyebrow mb-5 inline-flex">Donate</span>
               <h3
@@ -1957,38 +1859,17 @@ export default function HomePage() {
               >
                 Fund The Fight.
               </h3>
-              <p style={{ marginBottom: "1.25rem", opacity: 0.85, fontSize: "1rem", lineHeight: 1.6 }}>
-                Online payment processing is being stood up. In the meantime, contact the coalition directly to discuss donations, sponsorships, and event partnerships. Every dollar funds advocacy, legal defense, billboards, and getting owner-operators in front of Congress.
+              <p style={{ marginBottom: "1.75rem", opacity: 0.85, fontSize: "1rem", lineHeight: 1.6 }}>
+                Every dollar funds advocacy, legal defense, billboards, and getting owner-operators in front of Congress. Donations are processed securely through our donation partner.
               </p>
-              <div
-                style={{
-                  borderTop: "2px solid var(--dfc-navy)",
-                  paddingTop: "1.25rem",
-                  marginTop: "1.25rem",
-                }}
-              >
-                <p
-                  className="font-stencil"
-                  style={{
-                    color: "var(--dfc-oxblood)",
-                    letterSpacing: "0.2em",
-                    fontSize: "0.72rem",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  Contact To Give
-                </p>
+              <div className="mt-2 mb-6">
                 <a
-                  href="mailto:info@dieselfreedomcoalition.com"
-                  className="font-stencil"
-                  style={{
-                    color: "var(--dfc-navy)",
-                    fontSize: "1.15rem",
-                    letterSpacing: "0.05em",
-                    textDecoration: "underline",
-                  }}
+                  href="https://secure.anedot.com/diesel-freedom-coalition/freedom_donation"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-oxblood"
                 >
-                  info@dieselfreedomcoalition.com
+                  ★ Donate Now
                 </a>
               </div>
               <p
@@ -2005,22 +1886,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* REP FINDER */}
-          <div className="max-w-3xl mx-auto" id="rep-finder">
-            <div className="bill-card">
-              <span className="section-eyebrow mb-5 inline-flex">Contact Your Rep</span>
-              <h3
-                className="font-stencil mt-5 mb-2"
-                style={{ fontSize: "1.75rem", color: "var(--dfc-navy)" }}
-              >
-                Make The Call.
-              </h3>
-              <p style={{ marginBottom: "1.75rem", opacity: 0.85 }}>
-                Enter your ZIP, open your House Rep&rsquo;s contact page, copy the script, and dial. Calls carry more weight than emails every time.
-              </p>
-              <RepFinder />
-            </div>
-          </div>
         </div>
       </section>
 
@@ -2108,7 +1973,12 @@ export default function HomePage() {
                   </a>
                 </li>
                 <li style={{ padding: "0.35rem 0" }}>
-                  <a href="#act" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
+                  <a
+                    href="https://secure.anedot.com/diesel-freedom-coalition/freedom_donation"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "var(--dfc-cream)", textDecoration: "none" }}
+                  >
                     Take Action
                   </a>
                 </li>
