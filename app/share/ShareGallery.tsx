@@ -155,6 +155,65 @@ const SHAREABLES: Shareable[] = [
   },
 ];
 
+// To add more links later: drop another { label, sub, href } into the right group.
+const LINK_GROUPS: { group: string; links: { label: string; sub: string; href: string }[] }[] = [
+  {
+    group: "The Record",
+    links: [
+      {
+        label: "The Diesel Mandate",
+        sub: "Investigative record of America's diesel-emissions system",
+        href: "https://dieselmandate.com/",
+      },
+      {
+        label: "H.R. 8079",
+        sub: "The bill on congress.gov",
+        href: "https://www.congress.gov/bill/119th-congress/house-bill/8079",
+      },
+      {
+        label: "The White Paper",
+        sub: "Diesel Freedom Coalition",
+        href: "https://docs.google.com/document/u/0/d/19uFDcfguCnQX5ERSFsZp0_eCygRuYk06YojRwG72TG4/mobilebasic",
+      },
+    ],
+  },
+  {
+    group: "In The News",
+    links: [
+      {
+        label: "FreightWaves",
+        sub: "EPA's war on diesel is a national security issue",
+        href: "https://www.freightwaves.com/news/epas-war-on-diesel-is-a-national-security-issue",
+      },
+      {
+        label: "The Rob Report",
+        sub: "The EPA's War on Diesel 101",
+        href: "https://open.substack.com/pub/therobreport/p/the-epas-war-on-diesel-101",
+      },
+    ],
+  },
+  {
+    group: "On Social",
+    links: [
+      {
+        label: "LinkedIn",
+        sub: "Rob Carpenter",
+        href: "https://www.linkedin.com/posts/rob-carpenter-cds-cdme-74500977_epas-war-on-diesel-is-a-national-security-share-7481345469185626112-SstX/",
+      },
+      {
+        label: "Facebook",
+        sub: "Shared post",
+        href: "https://www.facebook.com/share/p/1BPAccKmsw/",
+      },
+      {
+        label: "X",
+        sub: "Rob Carpenter",
+        href: "https://x.com/RobCarpenter/status/2075579932885819550",
+      },
+    ],
+  },
+];
+
 function pad(n: number) {
   return n < 10 ? `0${n}` : `${n}`;
 }
@@ -249,6 +308,69 @@ export default function ShareGallery() {
             Pick a graphic, tap <strong>Download</strong> to save it to your phone, then <strong>Copy</strong> the
             caption and post it. That&rsquo;s it. Every share puts this fight in front of more people.
           </p>
+        </div>
+      </section>
+
+      {/* Quick Links */}
+      <section style={{ padding: "1rem 0 0.5rem" }}>
+        <div className="container">
+          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+            <p
+              className="font-stencil"
+              style={{ color: "var(--dfc-gold)", letterSpacing: "0.28em", fontSize: "0.85rem", marginBottom: "0.6rem" }}
+            >
+              Dig Deeper
+            </p>
+            <h2 className="font-stencil" style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)", color: "var(--dfc-cream)", margin: 0 }}>
+              SOURCES &amp; NEWS
+            </h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
+            {LINK_GROUPS.map((grp) => (
+              <div key={grp.group}>
+                <h3
+                  className="font-stencil"
+                  style={{
+                    color: "var(--dfc-gold)",
+                    fontSize: "1rem",
+                    letterSpacing: "0.16em",
+                    borderBottom: "2px solid var(--dfc-gold)",
+                    paddingBottom: "0.5rem",
+                    marginBottom: "0.9rem",
+                  }}
+                >
+                  {grp.group}
+                </h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                  {grp.links.map((lnk) => (
+                    <a
+                      key={lnk.href}
+                      href={lnk.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: "block",
+                        border: "1px solid rgba(245,237,216,0.2)",
+                        borderLeft: "3px solid var(--dfc-oxblood)",
+                        background: "var(--dfc-navy-2)",
+                        padding: "0.75rem 0.9rem",
+                        textDecoration: "none",
+                        color: "var(--dfc-cream)",
+                      }}
+                    >
+                      <span
+                        className="font-stencil"
+                        style={{ display: "block", fontSize: "0.95rem", letterSpacing: "0.04em", color: "var(--dfc-cream)" }}
+                      >
+                        {lnk.label} <span style={{ color: "var(--dfc-gold)" }}>&#8599;</span>
+                      </span>
+                      <span style={{ display: "block", fontSize: "0.82rem", opacity: 0.8, marginTop: "0.15rem" }}>{lnk.sub}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
