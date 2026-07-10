@@ -240,6 +240,14 @@ export default function HomePage() {
               >
                 ★ Donate Now
               </a>
+              <a
+                href="https://dfc-demo.pages.dev/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-oxblood"
+              >
+                Contact Rep
+              </a>
             </div>
           </div>
         </div>
@@ -1847,6 +1855,15 @@ export default function HomePage() {
             >
               Take Action
             </a>
+            <a
+              href="https://dfc-demo.pages.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-oxblood"
+              style={{ boxShadow: "4px 4px 0 var(--dfc-navy)" }}
+            >
+              Contact Rep
+            </a>
           </div>
         </div>
       </section>
@@ -1874,7 +1891,7 @@ export default function HomePage() {
               <p style={{ marginBottom: "1.75rem", opacity: 0.85, fontSize: "1rem", lineHeight: 1.6 }}>
                 Every dollar funds advocacy, legal defense, billboards, and getting owner-operators in front of Congress. Donations are processed securely through our donation partner.
               </p>
-              <div className="mt-2 mb-6">
+              <div className="mt-2 mb-6 flex flex-wrap gap-4">
                 <a
                   href="https://secure.anedot.com/diesel-freedom-coalition/freedom_donation"
                   target="_blank"
@@ -1882,6 +1899,14 @@ export default function HomePage() {
                   className="btn-oxblood"
                 >
                   ★ Donate Now
+                </a>
+                <a
+                  href="https://dfc-demo.pages.dev/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-gold"
+                >
+                  Contact Rep
                 </a>
               </div>
               <p
@@ -1992,6 +2017,16 @@ export default function HomePage() {
                     style={{ color: "var(--dfc-cream)", textDecoration: "none" }}
                   >
                     Take Action
+                  </a>
+                </li>
+                <li style={{ padding: "0.35rem 0" }}>
+                  <a
+                    href="https://dfc-demo.pages.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "var(--dfc-cream)", textDecoration: "none" }}
+                  >
+                    Contact Rep
                   </a>
                 </li>
               </ul>
