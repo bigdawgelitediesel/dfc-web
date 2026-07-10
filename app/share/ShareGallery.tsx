@@ -214,6 +214,12 @@ const LINK_GROUPS: { group: string; links: { label: string; sub: string; href: s
   },
 ];
 
+// Source documents shown on every share card so people can see where the posts come from.
+const SOURCE_DOCS: { label: string; href: string }[] = [
+  { label: "The Brief", href: "/dfc-brief-to-sba.pdf" },
+  { label: "Summary", href: "/dfc-brief-summary.pdf" },
+];
+
 function pad(n: number) {
   return n < 10 ? `0${n}` : `${n}`;
 }
@@ -439,6 +445,36 @@ export default function ShareGallery() {
                       >
                         {copied ? "Copied!" : "Copy Caption"}
                       </button>
+                    </div>
+
+                    <div style={{ marginTop: "0.85rem", paddingTop: "0.7rem", borderTop: "1px solid rgba(27,42,74,0.18)" }}>
+                      <span
+                        className="font-stencil"
+                        style={{
+                          display: "block",
+                          fontSize: "0.66rem",
+                          letterSpacing: "0.12em",
+                          textTransform: "uppercase",
+                          color: "var(--dfc-navy)",
+                          opacity: 0.65,
+                          marginBottom: "0.35rem",
+                        }}
+                      >
+                        Where this comes from
+                      </span>
+                      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                        {SOURCE_DOCS.map((doc) => (
+                          <a
+                            key={doc.href}
+                            href={doc.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--dfc-oxblood)", textDecoration: "none" }}
+                          >
+                            {doc.label} &#8599;
+                          </a>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </article>
