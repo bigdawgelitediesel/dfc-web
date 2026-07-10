@@ -163,6 +163,15 @@ export default function HomePage() {
               H.R. 8079
             </a>
             <a
+              href="https://dfc-demo.pages.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-oxblood"
+              style={{ padding: "0.6rem 1.1rem", fontSize: "0.8rem", boxShadow: "3px 3px 0 var(--dfc-navy)" }}
+            >
+              View Demo
+            </a>
+            <a
               href="https://secure.anedot.com/diesel-freedom-coalition/freedom_donation"
               target="_blank"
               rel="noopener noreferrer"
