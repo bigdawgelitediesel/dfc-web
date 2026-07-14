@@ -646,6 +646,163 @@ body {
 }
 
 /* ===================================================
+   AUDIT / RETROSPECTIVE PAGE
+   =================================================== */
+
+.audit-mono {
+  font-family: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
+  font-feature-settings: "tnum" 1;
+}
+
+.audit-hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 40%, rgba(200,151,58,0.10) 0%, transparent 70%),
+    linear-gradient(180deg, var(--dfc-navy-2) 0%, var(--dfc-navy) 55%, var(--dfc-navy-3) 100%);
+  color: var(--dfc-cream);
+  overflow: hidden;
+  padding: 6rem 0 4rem;
+}
+.audit-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245,237,216,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,237,216,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 25%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 25%, transparent 85%);
+  pointer-events: none;
+}
+
+/* sticky chapter nav */
+.audit-chapnav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--dfc-navy-3);
+  border-bottom: 2px solid var(--dfc-gold);
+  color: var(--dfc-cream);
+}
+.audit-chapnav-inner {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  padding: 0.55rem 1.5rem;
+  scrollbar-width: none;
+}
+.audit-chapnav-inner::-webkit-scrollbar { display: none; }
+.audit-chapnav a {
+  flex: 0 0 auto;
+  font-family: var(--font-display), "Oswald", sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(245,237,216,0.72);
+  text-decoration: none;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+.audit-chapnav a:hover { color: var(--dfc-gold); border-color: rgba(200,151,58,0.4); }
+
+/* eyebrow / kicker */
+.audit-kicker {
+  font-family: var(--font-display), "Oswald", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--dfc-gold);
+}
+
+/* ledger rows: label -> value */
+.audit-ledger { border-top: 2px solid var(--dfc-navy); }
+.section-navy .audit-ledger { border-top-color: var(--dfc-gold); }
+.audit-ledger-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--dfc-border);
+}
+.section-navy .audit-ledger-row { border-bottom-color: rgba(245,237,216,0.18); }
+.audit-ledger-label {
+  font-family: var(--font-body), "Inter", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.audit-ledger-value {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* comparison bars */
+.audit-bar-track {
+  height: 26px;
+  background: rgba(27,42,74,0.10);
+  border: 1px solid var(--dfc-border);
+  position: relative;
+  overflow: hidden;
+}
+.section-navy .audit-bar-track { background: rgba(245,237,216,0.10); border-color: rgba(245,237,216,0.2); }
+.audit-bar-fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 0.6rem;
+  font-family: ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--dfc-cream);
+  min-width: fit-content;
+}
+
+/* data table */
+.audit-table { width: 100%; border-collapse: collapse; }
+.audit-table th {
+  text-align: left;
+  font-family: var(--font-display), "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  padding: 0.75rem 0.85rem;
+  border-bottom: 2px solid currentColor;
+}
+.audit-table td {
+  padding: 0.85rem 0.85rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--dfc-border);
+  vertical-align: top;
+}
+.section-navy .audit-table td { border-bottom-color: rgba(245,237,216,0.16); }
+.audit-table .num {
+  font-family: ui-monospace, monospace;
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* reveal on scroll */
+.rise-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.rise-in.is-visible { opacity: 1; transform: none; }
+
+@media (max-width: 640px) {
+  .audit-ledger-row { grid-template-columns: 1fr; gap: 0.2rem; }
+  .audit-ledger-value { text-align: left; }
+  .audit-table { font-size: 0.82rem; }
+}
+
+/* ===================================================
    MOBILE
    =================================================== */
 
