@@ -57,38 +57,36 @@ const CHAPTERS = [
   { id: "sources", n: "★", t: "The Record" },
 ];
 
+// EPA's Dec 2000 RIA promises (Kory's G1 array, verbatim)
 const PROJECTION_LEDGER = [
-  ["Class 8 hardware, cumulative (2004+2007+2010)", "$5,136"],
-  ["Added lifetime operating cost, Class 8", "$4,600"],
-  ["Fuel-economy penalty", "0%"],
-  ["ULSD (15 ppm) fuel premium", "modest, as projected"],
-  ["NOx control technology assumed", "NOx adsorbers"],
-  ["Fixed compliance cost recovery", "expires after 5 model years"],
-  ["Fleet scrappage of older trucks", "on schedule"],
+  ["Class 8 hardware, near-term (MY2007)", "$3,230", "falling to $1,870 long-term"],
+  ["Class 8 lifetime operating increase", "$4,600", "714,000-mile life; NPV at sale"],
+  ["Fuel-economy penalty projected", "0%", "MY2004 rule even projected −1.5% fuel use"],
+  ["ULSD (15 ppm) fuel premium", "4.5–5¢/gal", "≈$2.2B/yr from 2010"],
+  ["Total annual program cost (2030)", "$4.2B/yr", "≈$8.1B in 2025 dollars"],
+  ["Total monetized benefits (2030)", "$70.4B/yr", "≈89% from VSL mortality valuation"],
+  ["NOx technology assumed", "NOx adsorbers", "SCR + DEF never costed; industry chose SCR"],
+  ["Premature deaths avoided / yr", "8,300", "plus 5,500 chronic bronchitis, 361,400 asthma attacks"],
 ];
 
+// Per-round per-truck cost: [round, EPA projection, miss, actual] (Kory's nh array)
 const PER_TRUCK = [
-  ["MY 2004 standards (EGR)", "$922", "~5×", "≈$4,600"],
-  ["MY 2007 standards (DPF)", "$4,300", "1.8×", "$7,743"],
-  ["MY 2010 standards (SCR)", "$3,600", "2.6×", "$9,000–9,600"],
-  ["Cumulative (2025$)", "$5,136", "4.2×", "$21,596"],
+  ["MY 2004 standards (EGR)", "$922", "4.7×", "$4,290"],
+  ["MY 2007 standards (DPF)", "$4,214", "1.8×", "$7,743"],
+  ["MY 2010 standards (SCR)", "$3,419", "2.6×", "$9,017"],
+  ["Cumulative 2004+2007+2010", "$5,136", "4.2×", "$21,596"],
 ];
 
+// Real per-mile / per-event operating burdens (Kory's line-item array)
 const OPERATING = [
-  [
-    "DEF fluid, fleet-wide",
-    "≈800 extra gal/yr ≈ $3,200/truck/yr @ $4/gal. EPA projected zero.",
-  ],
-  [
-    "DEF over a 714k-mi life",
-    "≈$10,500+ per truck, alone exceeding EPA's entire operating estimate",
-  ],
-  ["EGR-era fuel penalty (2004–2010)", "Projected 0%; reality 5–9%"],
-  ["Major aftertreatment failure", "Recurring; vocational duty cycles worst"],
-  [
-    "DPF cleaning, regens, sensors, coolers",
-    "Fleets report aftertreatment now rivals tires as the top maintenance line item",
-  ],
+  ["DEF fluid (never in the RIA)", "≈1.5¢/mile", "2–5% of diesel volume; ≈$10,500+ per 714k-mi life, alone exceeding EPA's entire operating estimate"],
+  ["Aftertreatment maintenance", "8–10¢/mile", "Fleets report aftertreatment now rivals tires as the top maintenance line item"],
+  ["DPF cleaning", "$300–1,200/svc", "Recurring; vocational duty cycles worst"],
+  ["DPF replacement", "$4,000–12,000", "Class 8 full replacement incl. labor (2024–26 market)"],
+  ["Major aftertreatment failure", "$8,000–20,000", "Single-incident cost incl. downtime"],
+  ["EGR-era fuel penalty (2004–2010)", "5–9%", "≈800 extra gal/yr ≈ $3,200/truck/yr @ $4/gal. EPA projected zero."],
+  ["Schneider fleet maintenance delta", "+28.2%", "2007-model trucks vs pre-Oct-2002 trucks"],
+  ["R&M industry average (ATRI)", "20.2¢/mile", "Record high 2023; total marginal cost $2.26–2.27/mile"],
 ];
 
 const TIMELINE = [
@@ -134,65 +132,86 @@ const TIMELINE = [
   },
 ];
 
+// Marginal gain vs marginal cost by era (Kory's diminishing-returns array)
 const CURVE = [
   {
     era: "Uncontrolled → early standards (1988–1998)",
-    tag: "Large marginal gains",
-    body: "Engine design, injection timing, combustion optimization, fuel quality. Massive NOx/PM reductions at manageable incremental cost. This is the steep part of the curve.",
+    tag: "The big cuts",
+    gainPct: 100,
+    costPct: 12,
+    body: "Engine design, injection timing, combustion optimization, fuel quality. Massive NOx/PM reductions at manageable incremental cost, the steep part of the curve.",
   },
   {
     era: "Tier 2-equivalent era (1998–2004)",
-    tag: "The big cuts",
+    tag: "Large marginal gains",
+    gainPct: 68,
+    costPct: 30,
     body: "EGR and early controls secure the overwhelming majority of reductions relative to pre-regulatory baselines. Benefits still large relative to costs.",
   },
   {
     era: "2007/2010 aftertreatment (DPF + SCR)",
     tag: "Smaller increments",
-    body: "2–3× aggregate cost for roughly 90% benefit realization. The knee of the curve, where every added ton removed starts costing far more.",
+    gainPct: 26,
+    costPct: 62,
+    body: "Each stringency increment requires exponentially more hardware: filters, catalysts, DEF dosing, sensors. Marginal cost curve turns sharply upward while marginal tons removed shrink.",
   },
   {
-    era: "Beyond, toward Tier 4+",
-    tag: "+11.6% NOx, negative return",
-    body: "Diminishing since Tier 2; negative by EPA's own 2026 model. Past this point, added stringency manufactures the non-compliance that erodes the remaining benefits.",
+    era: "2027+ ultra-low NOx / extended durability",
+    tag: "Low single digits, or negative",
+    gainPct: 6,
+    costPct: 100,
+    body: "EPA's own July 2026 modeling: shortening warranties (its response to compliance burden) is projected to INCREASE fleet NOx up to 11.6% by 2055 via post-warranty deterioration, tampering, and mal-maintenance. The marginal return goes negative.",
   },
 ];
 
+// §610 review: [aspect, EPA's 2012 finding, the evidence in the docket] (Kory's array)
 const SECTION610 = [
-  ["Need for amendment", "Not identified as requiring change"],
   [
-    "Small-entity impacts",
-    "Dramatic documented effects on small fleets, owner-operators, dealerships",
+    "Per-vehicle & lifecycle costs",
+    "Burdens 'manageable' within existing flexibilities",
+    "NADA/ATA data: integration, calibration, warranty and maintenance costs far above 2000 RIA projections",
+  ],
+  [
+    "Energy / fuel impacts",
+    "Not identified as requiring change",
+    "5–9% fuel-economy penalties and downtime costs documented; RIA had projected zero",
   ],
   [
     "Operational & repair burdens",
+    "'Implementation challenges,' not insurmountable",
     "Elevated failures, derates, disruptions to refrigerated / time-sensitive freight",
   ],
-  ["Original flexibilities", "Deemed adequate"],
-  ["Implementation challenges", "“no widespread inability to comply”"],
   [
-    "Evidence already in the docket",
-    "NADA/ATA data: integration, calibration, warranty and maintenance costs far above 2000 RIA projections",
+    "Small-entity impacts",
+    "Original flexibilities deemed adequate",
+    "Dramatic documented effects on small fleets, owner-operators, dealerships",
+  ],
+  [
+    "Need for amendment",
+    "None; 'no widespread inability to comply'",
+    "2014 emergency relief and 2026 rollbacks later validated the 2012 record",
   ],
 ];
 
+// The four advocacy pillars (Kory's exact four)
 const PILLARS = [
   {
-    n: "01",
+    n: "I",
     title: "CAA Authorizes Revision",
     body: "CAA §202(a)(1) directs EPA to prescribe (and 'from time to time revise') standards. §202(a)(3)(B) expressly authorizes revising heavy-duty standards taking cost into account; §213(a)(3) is the nonroad parallel. Post-Loper Bright, courts read this text independently.",
   },
   {
-    n: "02",
-    title: "The Justification Pillar Is Gone",
-    body: "With EPA's January 2026 refusal to monetize PM2.5/ozone benefits, the marginal-benefit side of the equation is now officially unquantified, while SBA Advocacy pegs the cost side at ~$195B annually. A marginal analysis with no benefit numerator cannot justify more stringency.",
-  },
-  {
-    n: "03",
-    title: "Evidence Already in the Docket",
+    n: "II",
+    title: "APA Demands New-Evidence Review",
     body: "Two categories of significant new information: (1) EPA's Jan 2026 abandonment of PM2.5/ozone benefit monetization, the dominant justification for the standards; (2) two decades of real-world cost, reliability, derate, and safety data far exceeding projections. Ignoring either risks arbitrary-and-capricious review.",
   },
   {
-    n: "04",
+    n: "III",
+    title: "Guidance Can't Fix Tampering Law",
+    body: "The June 29, 2026 Presidential Memorandum's repair guidance offers near-term relief, but as long as standards stay at current levels, aftertreatment remains part of the certified configuration. Only revising the standards themselves makes hardware removal lawful compliance instead of §203(a)(3) tampering.",
+  },
+  {
+    n: "IV",
     title: "Technology-Neutral Pathway Has Precedent",
     body: "The CAA sets emission-performance standards, not perpetual hardware mandates. EPA already authorized alternatives where records showed operational harm: the 2012/2014 Emergency Vehicle Rules and recent urea-quality-sensor guidance. A Tier 2-equivalent, performance-based pathway follows that precedent.",
   },
@@ -367,10 +386,10 @@ export default function AuditReport() {
             }}
           >
             {[
-              { v: 10, prefix: "", suffix: "×", label: "operating-cost miss" },
-              { v: 4.2, prefix: "", suffix: "×", label: "hardware-cost miss", dec: 1 },
-              { v: 80, prefix: "", suffix: "%", label: "HD NOx delivered" },
-              { v: 195, prefix: "$", suffix: "B", label: "annual cost side (SBA)" },
+              { v: 4.2, prefix: "", suffix: "×", label: "cumulative per-truck cost underestimate", dec: 1 },
+              { v: 10, prefix: "≈", suffix: "×", label: "lifetime operating-cost underestimate" },
+              { v: 195, prefix: "$", suffix: "B", label: "SBA est. small-business savings from reform" },
+              { v: 80, prefix: "", suffix: "%", label: "actual HD NOx reduction, 2002–2022" },
             ].map((c) => (
               <div key={c.label}>
                 <div
@@ -446,9 +465,14 @@ export default function AuditReport() {
               The promises, itemized
             </div>
             <div className="audit-ledger" style={{ marginTop: "1rem" }}>
-              {PROJECTION_LEDGER.map(([label, val]) => (
+              {PROJECTION_LEDGER.map(([label, val, note]) => (
                 <div className="audit-ledger-row" key={label}>
-                  <div className="audit-ledger-label">{label}</div>
+                  <div className="audit-ledger-label">
+                    {label}
+                    <span style={{ display: "block", fontSize: "0.78rem", opacity: 0.6, marginTop: "0.15rem" }}>
+                      {note}
+                    </span>
+                  </div>
                   <div className="audit-ledger-value" style={{ color: "var(--dfc-navy)" }}>
                     {val}
                   </div>
@@ -546,10 +570,13 @@ export default function AuditReport() {
 
           <Reveal style={{ marginTop: "2.5rem" }}>
             <div className="audit-ledger">
-              {OPERATING.map(([label, val]) => (
-                <div className="audit-ledger-row" key={label} style={{ gridTemplateColumns: "minmax(140px,0.7fr) 1.3fr" }}>
-                  <div className="audit-ledger-label" style={{ fontWeight: 700 }}>{label}</div>
-                  <div className="audit-ledger-label" style={{ textAlign: "right", opacity: 0.85 }}>{val}</div>
+              {OPERATING.map(([item, figure, detail]) => (
+                <div className="audit-ledger-row" key={item} style={{ gridTemplateColumns: "minmax(150px,0.85fr) auto", alignItems: "start" }}>
+                  <div className="audit-ledger-label">
+                    <span style={{ fontWeight: 700, display: "block" }}>{item}</span>
+                    <span style={{ display: "block", fontSize: "0.82rem", opacity: 0.8, marginTop: "0.2rem" }}>{detail}</span>
+                  </div>
+                  <div className="audit-ledger-value" style={{ color: "var(--dfc-oxblood)" }}>{figure}</div>
                 </div>
               ))}
             </div>
@@ -580,9 +607,9 @@ export default function AuditReport() {
             }}
           >
             {[
-              { n: "104,000", l: "extra pre-DPF trucks pre-bought in 2005–06 (NERA)" },
-              { n: "−45%", l: "truck sales collapse, 2007–08" },
-              { n: "Oldest since 1979", l: "average Class 8 fleet age" },
+              { n: "+104,077", l: "extra pre-DPF trucks pre-bought in 2005–06 (NERA)" },
+              { n: "−149,272", l: "units collapse in 2007–08 after the cliff" },
+              { n: "6.6 yrs", l: "average Class 8 fleet age, oldest since 1979" },
             ].map((s) => (
               <div
                 key={s.l}
@@ -718,6 +745,22 @@ export default function AuditReport() {
                   </span>
                 </div>
                 <p style={{ marginTop: "0.6rem", fontSize: "0.95rem", lineHeight: 1.55, opacity: 0.85 }}>{c.body}</p>
+                <div style={{ marginTop: "1rem", display: "grid", gap: "0.5rem" }}>
+                  {[
+                    { k: "Marginal emissions gain", pct: c.gainPct, color: "var(--dfc-navy)" },
+                    { k: "Marginal cost", pct: c.costPct, color: "var(--dfc-oxblood)" },
+                  ].map((b) => (
+                    <div key={b.k} style={{ display: "grid", gridTemplateColumns: "150px 1fr 3ch", alignItems: "center", gap: "0.6rem" }}>
+                      <span className="audit-mono" style={{ fontSize: "0.66rem", textTransform: "uppercase", letterSpacing: "0.08em", opacity: 0.7 }}>
+                        {b.k}
+                      </span>
+                      <span style={{ height: "10px", background: "rgba(27,42,74,0.10)", display: "block" }}>
+                        <span style={{ display: "block", height: "100%", width: `${b.pct}%`, background: b.color }} />
+                      </span>
+                      <span className="audit-mono" style={{ fontSize: "0.68rem", fontWeight: 700, textAlign: "right" }}>{b.pct}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </Reveal>
@@ -747,10 +790,18 @@ export default function AuditReport() {
           </Reveal>
           <Reveal style={{ marginTop: "2.5rem" }}>
             <div className="audit-ledger" style={{ borderTopColor: "var(--dfc-gold)" }}>
-              {SECTION610.map(([label, val]) => (
-                <div className="audit-ledger-row" key={label} style={{ gridTemplateColumns: "minmax(160px,0.65fr) 1.35fr" }}>
-                  <div className="audit-ledger-label" style={{ fontWeight: 700, color: "var(--dfc-gold)" }}>{label}</div>
-                  <div className="audit-ledger-label" style={{ textAlign: "right", color: "rgba(245,237,216,0.85)" }}>{val}</div>
+              {SECTION610.map(([aspect, finding, evidence]) => (
+                <div className="audit-ledger-row" key={aspect} style={{ gridTemplateColumns: "minmax(180px,0.9fr) 1.1fr", alignItems: "start" }}>
+                  <div className="audit-ledger-label">
+                    <span style={{ fontWeight: 700, color: "var(--dfc-gold)", display: "block" }}>{aspect}</span>
+                    <span style={{ display: "block", fontSize: "0.82rem", color: "rgba(245,237,216,0.72)", marginTop: "0.2rem" }}>{evidence}</span>
+                  </div>
+                  <div className="audit-ledger-label" style={{ textAlign: "right", color: "rgba(245,237,216,0.9)", fontStyle: "italic" }}>
+                    &ldquo;{finding}&rdquo;
+                    <span style={{ display: "block", fontSize: "0.68rem", fontStyle: "normal", opacity: 0.55, marginTop: "0.2rem", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                      EPA&rsquo;s 2012 finding
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -812,10 +863,9 @@ export default function AuditReport() {
           </Reveal>
           <Reveal style={{ marginTop: "2.5rem", maxWidth: "72ch", borderLeft: "4px solid var(--dfc-oxblood)", paddingLeft: "1.5rem" }}>
             <p style={{ fontSize: "1rem", lineHeight: 1.7 }}>
-              The June 29, 2026 Presidential Memorandum&rsquo;s repair guidance offers near-term relief, but as
-              long as standards stay at current levels, aftertreatment remains part of the certified
-              configuration. Only revising the standards themselves makes hardware removal lawful compliance
-              instead of §203(a)(3) tampering.
+              With EPA&rsquo;s January 2026 refusal to monetize PM2.5/ozone benefits, the marginal-benefit side of
+              the equation is now officially unquantified, while SBA Advocacy pegs the cost side at ~$195B
+              annually. A marginal analysis with no benefit numerator cannot justify more stringency.
             </p>
           </Reveal>
         </div>
