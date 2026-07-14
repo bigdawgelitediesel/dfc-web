@@ -345,9 +345,9 @@ export default function AuditReport() {
             }}
           >
             In December 2000, EPA projected the 2007–2010 heavy-duty aftertreatment mandates — DPF, then SCR —
-            would cost roughly <strong style={{ color: "var(--dfc-gold)" }}>$4,600</strong> in added lifetime
-            operating costs. Twenty years of dealer invoices, fleet ledgers, and EPA&rsquo;s own reversals tell a
-            different story. This is the complete record, compiled.
+            would cost roughly <strong style={{ color: "var(--dfc-gold)" }}>$4,600</strong>{" "}
+            in added lifetime operating costs. Twenty years of dealer invoices, fleet ledgers, and
+            EPA&rsquo;s own reversals tell a different story. This is the complete record, compiled.
           </p>
           <div
             className="audit-mono"
