@@ -54,7 +54,7 @@ const CHAPTERS = [
   { id: "ch07", n: "07", t: "The Economics" },
   { id: "ch08", n: "08", t: "The Missed Off-Ramp" },
   { id: "ch09", n: "09", t: "The Path Forward" },
-  { id: "sources", n: "—", t: "The Record" },
+  { id: "sources", n: "★", t: "The Record" },
 ];
 
 const PROJECTION_LEDGER = [
@@ -77,11 +77,11 @@ const PER_TRUCK = [
 const OPERATING = [
   [
     "DEF fluid, fleet-wide",
-    "≈800 extra gal/yr ≈ $3,200/truck/yr @ $4/gal — EPA projected zero",
+    "≈800 extra gal/yr ≈ $3,200/truck/yr @ $4/gal. EPA projected zero.",
   ],
   [
     "DEF over a 714k-mi life",
-    "≈$10,500+ per truck — alone exceeding EPA's entire operating estimate",
+    "≈$10,500+ per truck, alone exceeding EPA's entire operating estimate",
   ],
   ["EGR-era fuel penalty (2004–2010)", "Projected 0%; reality 5–9%"],
   ["Major aftertreatment failure", "Recurring; vocational duty cycles worst"],
@@ -105,11 +105,11 @@ const TIMELINE = [
   {
     date: "2005–06",
     title: "The Great Pre-Buy",
-    body: "Fleets buy ~104,000 extra pre-DPF trucks in 2005–06 (NERA). Sales collapse 45% in 2007–08. MY2007 DPF surcharges average $7,743 — 1.8× projection.",
+    body: "Fleets buy ~104,000 extra pre-DPF trucks in 2005–06 (NERA). Sales collapse 45% in 2007–08. MY2007 DPF surcharges average $7,743, or 1.8× projection.",
   },
   {
     date: "2010",
-    title: "SCR — The Tech EPA Never Costed",
+    title: "SCR: The Tech EPA Never Costed",
     body: "Industry adopts SCR + DEF, not NOx adsorbers. Surcharges hit $9,000–9,600 (2.6× projection). DEF fluid, tanks, sensors, heaters: all absent from the 2000 RIA.",
   },
   {
@@ -119,18 +119,18 @@ const TIMELINE = [
   },
   {
     date: "Aug 2014",
-    title: "EPA Admits It — For Emergency Vehicles",
+    title: "EPA Admits It, For Emergency Vehicles",
     body: "Emergency Vehicle Rule grants aftertreatment relief for fire apparatus & ambulances: tacit acknowledgment that derates and regens compromise mission-critical operations (79 FR 46356).",
   },
   {
     date: "Jan 2026",
     title: "EPA Stops Monetizing PM2.5 Benefits",
-    body: "In the combustion-turbines EIA (EPA-452/R-26-002), EPA abandons monetization of PM2.5/ozone health benefits — the very category that supplied ~89% of the 2000 rule's $70.4B justification.",
+    body: "In the combustion-turbines EIA (EPA-452/R-26-002), EPA abandons monetization of PM2.5/ozone health benefits, the very category that supplied ~89% of the 2000 rule's $70.4B justification.",
   },
   {
     date: "Jul 2026",
     title: "The Reckoning",
-    body: "EPA proposes eliminating DEF deratements entirely and rolling back the 450k-mile warranty — claiming $12B savings ($4,130–6,152/engine) and calling prior requirements 'unworkable.'",
+    body: "EPA proposes eliminating DEF deratements entirely and rolling back the 450k-mile warranty, claiming $12B savings ($4,130–6,152/engine) and calling prior requirements 'unworkable.'",
   },
 ];
 
@@ -138,7 +138,7 @@ const CURVE = [
   {
     era: "Uncontrolled → early standards (1988–1998)",
     tag: "Large marginal gains",
-    body: "Engine design, injection timing, combustion optimization, fuel quality. Massive NOx/PM reductions at manageable incremental cost — the steep part of the curve.",
+    body: "Engine design, injection timing, combustion optimization, fuel quality. Massive NOx/PM reductions at manageable incremental cost. This is the steep part of the curve.",
   },
   {
     era: "Tier 2-equivalent era (1998–2004)",
@@ -148,11 +148,11 @@ const CURVE = [
   {
     era: "2007/2010 aftertreatment (DPF + SCR)",
     tag: "Smaller increments",
-    body: "2–3× aggregate cost for roughly 90% benefit realization. The knee of the curve — where every added ton removed starts costing far more.",
+    body: "2–3× aggregate cost for roughly 90% benefit realization. The knee of the curve, where every added ton removed starts costing far more.",
   },
   {
     era: "Beyond, toward Tier 4+",
-    tag: "+11.6% NOx — negative return",
+    tag: "+11.6% NOx, negative return",
     body: "Diminishing since Tier 2; negative by EPA's own 2026 model. Past this point, added stringency manufactures the non-compliance that erodes the remaining benefits.",
   },
 ];
@@ -179,17 +179,17 @@ const PILLARS = [
   {
     n: "01",
     title: "CAA Authorizes Revision",
-    body: "CAA §202(a)(1) directs EPA to prescribe — and 'from time to time revise' — standards. §202(a)(3)(B) expressly authorizes revising heavy-duty standards taking cost into account; §213(a)(3) is the nonroad parallel. Post-Loper Bright, courts read this text independently.",
+    body: "CAA §202(a)(1) directs EPA to prescribe (and 'from time to time revise') standards. §202(a)(3)(B) expressly authorizes revising heavy-duty standards taking cost into account; §213(a)(3) is the nonroad parallel. Post-Loper Bright, courts read this text independently.",
   },
   {
     n: "02",
     title: "The Justification Pillar Is Gone",
-    body: "With EPA's January 2026 refusal to monetize PM2.5/ozone benefits, the marginal-benefit side of the equation is now officially unquantified — while SBA Advocacy pegs the cost side at ~$195B annually. A marginal analysis with no benefit numerator cannot justify more stringency.",
+    body: "With EPA's January 2026 refusal to monetize PM2.5/ozone benefits, the marginal-benefit side of the equation is now officially unquantified, while SBA Advocacy pegs the cost side at ~$195B annually. A marginal analysis with no benefit numerator cannot justify more stringency.",
   },
   {
     n: "03",
     title: "Evidence Already in the Docket",
-    body: "Two categories of significant new information: (1) EPA's Jan 2026 abandonment of PM2.5/ozone benefit monetization — the dominant justification for the standards; (2) two decades of real-world cost, reliability, derate, and safety data far exceeding projections. Ignoring either risks arbitrary-and-capricious review.",
+    body: "Two categories of significant new information: (1) EPA's Jan 2026 abandonment of PM2.5/ozone benefit monetization, the dominant justification for the standards; (2) two decades of real-world cost, reliability, derate, and safety data far exceeding projections. Ignoring either risks arbitrary-and-capricious review.",
   },
   {
     n: "04",
@@ -222,7 +222,7 @@ const SOURCES = [
     href: "https://www.regulations.gov/docket/EPA-HQ-OAR-2012-0313",
   },
   {
-    label: "Advanced Collaborative Emissions Study — Executive Summary (HEI ACES)",
+    label: "Advanced Collaborative Emissions Study: Executive Summary (HEI ACES)",
     href: "https://www.healtheffects.org/publication/executive-summary-advanced-collaborative-emissions-study-aces",
   },
   {
@@ -234,7 +234,7 @@ const SOURCES = [
     href: "https://www.worktruckonline.com/articles/aftertreatment-system-a-new-system-not-to-be-overlooked",
   },
   {
-    label: "EPA MOVES Model — Open-Source Emissions Simulator (GitHub)",
+    label: "EPA MOVES Model: Open-Source Emissions Simulator (GitHub)",
     href: "https://github.com/USEPA/EPA_MOVES_Model",
   },
   {
@@ -243,11 +243,11 @@ const SOURCES = [
   },
   {
     label:
-      "Emergency Vehicle / Tier 3 Amendments — Aftertreatment Relief for Fire Apparatus & Ambulances (79 FR 46356)",
+      "Emergency Vehicle / Tier 3 Amendments: Aftertreatment Relief for Fire Apparatus & Ambulances (79 FR 46356)",
     href: "https://www.federalregister.gov/documents/2014/08/08/2014-18161/amendments-related-to-tier-3-motor-vehicle-emission-and-fuel-standards",
   },
   {
-    label: "SBA Office of Advocacy — Priority Regulations for Reform (Diesel Emission Standards, ~$195B)",
+    label: "SBA Office of Advocacy: Priority Regulations for Reform (Diesel Emission Standards, ~$195B)",
     href: "https://advocacy.sba.gov/",
   },
   {
@@ -344,7 +344,7 @@ export default function AuditReport() {
               color: "rgba(245,237,216,0.9)",
             }}
           >
-            In December 2000, EPA projected the 2007–2010 heavy-duty aftertreatment mandates — DPF, then SCR —
+            In December 2000, EPA projected the 2007–2010 heavy-duty aftertreatment mandates (DPF, then SCR)
             would cost roughly <strong style={{ color: "var(--dfc-gold)" }}>$4,600</strong>{" "}
             in added lifetime operating costs. Twenty years of dealer invoices, fleet ledgers, and
             EPA&rsquo;s own reversals tell a different story. This is the complete record, compiled.
@@ -437,7 +437,7 @@ export default function AuditReport() {
                 className="audit-mono"
                 style={{ marginTop: "0.75rem", fontSize: "0.8rem", opacity: 0.7, fontStyle: "normal" }}
               >
-                — EPA Regulatory Impact Analysis, December 2000
+                EPA Regulatory Impact Analysis, December 2000
               </footer>
             </blockquote>
           </Reveal>
@@ -471,7 +471,7 @@ export default function AuditReport() {
               Dealer invoices carried explicit EPA-compliance surcharges. Western Star line items read
               &ldquo;2002/2004 Engine Emissions Escalator&hellip; $4,148.&rdquo; Volvo invoices read
               &ldquo;2007 EPA surcharge net/net no discount&hellip; $7,500.&rdquo; A 2009 Peterbilt bulletin set
-              the 2010 ISX surcharge at $9,250 — non-discountable.
+              the 2010 ISX surcharge at $9,250, non-discountable.
             </p>
           </Reveal>
           <Reveal style={{ marginTop: "2.5rem", overflowX: "auto" }}>
@@ -516,7 +516,7 @@ export default function AuditReport() {
               Operating Costs Ran ~10× the Projection
             </h2>
             <p style={{ marginTop: "1.5rem", fontSize: "1.1rem", lineHeight: 1.65, maxWidth: "68ch" }}>
-              EPA projected $4,600 in added lifetime operating costs for a Class 8 truck — and zero
+              EPA projected $4,600 in added lifetime operating costs for a Class 8 truck, and zero
               fuel-economy penalty. Then the industry adopted SCR, and every mile began consuming a fluid the
               RIA never mentioned: DEF. Add regens, cleanings, cooler failures, sensors, and derates.
             </p>
@@ -529,8 +529,8 @@ export default function AuditReport() {
             </div>
             {[
               { label: "EPA projection", val: 8.9, pct: 10, color: "var(--dfc-navy)", display: "$8.9k" },
-              { label: "Actual — low estimate", val: 68, pct: 76, color: "var(--dfc-oxblood)", display: "$68k" },
-              { label: "Actual — high estimate", val: 90, pct: 100, color: "var(--dfc-oxblood)", display: "$90k" },
+              { label: "Actual (low estimate)", val: 68, pct: 76, color: "var(--dfc-oxblood)", display: "$68k" },
+              { label: "Actual (high estimate)", val: 90, pct: 100, color: "var(--dfc-oxblood)", display: "$90k" },
             ].map((b) => (
               <div key={b.label} style={{ marginBottom: "1rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
@@ -568,7 +568,7 @@ export default function AuditReport() {
             <p style={{ marginTop: "1.5rem", fontSize: "1.1rem", lineHeight: 1.65, maxWidth: "70ch", color: "rgba(245,237,216,0.9)" }}>
               Every standards round triggered the same rational response: buy the old truck before the new cost
               arrives. The result was boom-bust whiplash through manufacturing towns, an aging national fleet, a
-              glider-kit surge — and cleaner air arriving years late.
+              glider-kit surge, and cleaner air arriving years late.
             </p>
           </Reveal>
           <Reveal
@@ -618,7 +618,7 @@ export default function AuditReport() {
               EPA HD Diesel · 2000–2026
             </h2>
             <p style={{ marginTop: "1.5rem", fontSize: "1.1rem", lineHeight: 1.65, maxWidth: "68ch" }}>
-              From technology-forcing optimism to EPA&rsquo;s own 2026 reversals — every entry below is
+              From technology-forcing optimism to EPA&rsquo;s own 2026 reversals, every entry below is
               documented in federal dockets, court filings, or the agency&rsquo;s own publications.
             </p>
           </Reveal>
@@ -642,7 +642,7 @@ export default function AuditReport() {
           <Reveal>
             <span className="section-eyebrow">Chapter 06 · The Other Column</span>
             <h2 className="section-title section-title-cream" style={{ marginTop: "1.25rem" }}>
-              The Air Did Get Cleaner — and That Cuts Both Ways
+              The Air Did Get Cleaner, and That Cuts Both Ways
             </h2>
             <p style={{ marginTop: "1.5rem", fontSize: "1.1rem", lineHeight: 1.65, maxWidth: "70ch", color: "rgba(245,237,216,0.9)" }}>
               An honest audit records both columns. The physical emission goals were largely delivered: HD NOx
@@ -675,7 +675,7 @@ export default function AuditReport() {
           <Reveal style={{ marginTop: "2.5rem", maxWidth: "72ch", borderLeft: "2px solid var(--dfc-oxblood)", paddingLeft: "1.5rem" }}>
             <p style={{ fontSize: "1rem", lineHeight: 1.7, color: "rgba(245,237,216,0.9)" }}>
               Roughly <strong style={{ color: "var(--dfc-gold)" }}>89%</strong> of the 2000 rule&rsquo;s $70.4B
-              annual benefit figure came from VSL-monetized PM2.5 mortality — the exact category EPA now
+              annual benefit figure came from VSL-monetized PM2.5 mortality, the exact category EPA now
               declines to monetize. Under the agency&rsquo;s current method, the original justification could not
               be written today.
             </p>
@@ -722,7 +722,7 @@ export default function AuditReport() {
             ))}
           </Reveal>
           <Reveal className="pull-quote" style={{ marginTop: "2.5rem", maxWidth: "64ch" }}>
-            The record — 2–5× hardware overruns, ~10× operating overruns, single-digit remaining fleet gains —
+            The record (2–5× hardware overruns, ~10× operating overruns, single-digit remaining fleet gains)
             indicates equilibrium was largely reached at Tier 2-equivalent stringency. Past the optimum,
             stringency doesn&rsquo;t just waste money; it manufactures the non-compliance that erodes the
             remaining benefits.
@@ -758,7 +758,7 @@ export default function AuditReport() {
           <Reveal style={{ marginTop: "2.5rem", maxWidth: "72ch" }}>
             <p style={{ fontSize: "1rem", lineHeight: 1.7, color: "rgba(245,237,216,0.85)" }}>
               Two years after the review closed, EPA&rsquo;s own 2014 Emergency Vehicle Rule conceded that
-              aftertreatment could compromise fire apparatus and ambulances — establishing DEF maintenance
+              aftertreatment could compromise fire apparatus and ambulances, establishing DEF maintenance
               intervals and emergency derate relief. The agency had, in effect, validated the
               operational-reliability record it had declined to act on in 2012, just for a narrower class of
               vehicles.
@@ -776,7 +776,7 @@ export default function AuditReport() {
               The Legal Architecture Is Already in Place
             </h2>
             <p style={{ marginTop: "1.5rem", fontSize: "1.1rem", lineHeight: 1.65, maxWidth: "72ch" }}>
-              The advocacy brief prepared for the SBA Office of Advocacy (July 2026) rests on four pillars — each
+              The advocacy brief prepared for the SBA Office of Advocacy (July 2026) rests on four pillars, each
               grounded in statute, precedent, and EPA&rsquo;s own recent actions. The requested remedy: evaluate
               Tier 2-equivalent criteria-pollutant standards for on-road medium/heavy-duty diesels and earlier
               nonroad tiers, with a technology-neutral compliance pathway.
@@ -836,7 +836,7 @@ export default function AuditReport() {
                 color: "var(--dfc-cream)",
               }}
             >
-              The 2007/2010 mandates forced technologies that genuinely cleaned America&rsquo;s diesel fleet —
+              The 2007/2010 mandates forced technologies that genuinely cleaned America&rsquo;s diesel fleet,
               and did it on the back of cost projections that missed by multiples, operating assumptions that
               ignored the dominant technology, and a review process that declined to correct course when the
               evidence arrived. Twenty-six years later, EPA&rsquo;s own reversals have reopened the question the
@@ -863,7 +863,7 @@ export default function AuditReport() {
       <section className="section-sm section-cream grain-overlay" id="sources" style={{ paddingBottom: "5rem" }}>
         <div className="container" style={{ maxWidth: "900px" }}>
           <Reveal>
-            <span className="section-eyebrow">The Record — All Sources</span>
+            <span className="section-eyebrow">The Record · All Sources</span>
             <h2 className="section-title" style={{ marginTop: "1.25rem", fontSize: "clamp(1.75rem,3.5vw,2.5rem)" }}>
               Every Figure Traces to a Public Document
             </h2>
