@@ -3,7 +3,7 @@
 import { useState } from "react";
 import "./advocacy.css";
 
-const PAGE_URL = "https://dieselfreedomcoalition.com/advocacy";
+const PAGE_URL = "https://dieselfreedomcoalition.org/advocacy";
 const EMAIL = "info@dieselfreedomcoalition.com";
 const DONATE = "https://secure.anedot.com/diesel-freedom-coalition/freedom_donation";
 
@@ -222,12 +222,12 @@ export default function AdvocacyPoster() {
             {/* ---- QR ---- */}
             <div className="adv-qr">
               <a href={PAGE_URL} aria-label="QR code linking to this page">
-                <img src="/advocacy-qr.png" alt="QR code for dieselfreedomcoalition.com/advocacy" width={800} height={800} />
+                <img src="/advocacy-qr.png" alt="QR code for dieselfreedomcoalition.org/advocacy" width={800} height={800} />
               </a>
               <div>
                 <div className="adv-qr-scan">Scan to Learn More</div>
                 <div className="adv-qr-links">
-                  <a href={PAGE_URL}>dieselfreedomcoalition.com/advocacy</a>
+                  <a href={PAGE_URL}>dieselfreedomcoalition.org/advocacy</a>
                   <br />
                   <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
                 </div>
