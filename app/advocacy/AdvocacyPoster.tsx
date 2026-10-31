@@ -246,8 +246,8 @@ export default function AdvocacyPoster() {
             <button type="button" onClick={copyLink} className="btn-outline-cream">
               {copied ? "Link Copied ✓" : "Copy Page Link"}
             </button>
-            <a href="/advocacy-qr.png" download="dfc-advocacy-qr.png" className="btn-outline-cream">
-              Download QR Code
+            <a href={DONATE} target="_blank" rel="noopener noreferrer" className="btn-oxblood" style={{ boxShadow: "4px 4px 0 #000" }}>
+              Donate
             </a>
           </div>
         </div>
