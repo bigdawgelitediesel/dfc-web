@@ -28,7 +28,7 @@ const DESCRIPTION =
   "The Diesel Freedom Coalition. American diesel keeps America fed, built, and moving. We fight for the owner-operators, farmers, and fleets paying the EPA compliance tax. Support H.R. 8079, the Diesel Truck Liberation Act.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://dieselfreedomcoalition.com"),
+  metadataBase: new URL("https://dieselfreedomcoalition.org"),
   title: {
     default: "Diesel Freedom Coalition | We Provide America",
     template: "%s | Diesel Freedom Coalition",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://dieselfreedomcoalition.com",
+    url: "https://dieselfreedomcoalition.org",
     siteName: "Diesel Freedom Coalition",
     title: "Diesel Freedom Coalition | We Provide America",
     description: DESCRIPTION,
