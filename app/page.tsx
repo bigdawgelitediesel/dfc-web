@@ -162,6 +162,9 @@ export default function HomePage() {
             <a href="#bill" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
               H.R. 8079
             </a>
+            <a href="/advocacy" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
+              Advocacy
+            </a>
             <a href="/audit" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
               The Audit
             </a>

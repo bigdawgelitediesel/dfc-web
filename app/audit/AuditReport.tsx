@@ -316,6 +316,9 @@ export default function AuditReport() {
             <a href="/" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
               Home
             </a>
+            <a href="/advocacy" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
+              Advocacy
+            </a>
             <a href="/share" style={{ color: "var(--dfc-cream)", textDecoration: "none" }}>
               Share The Fight
             </a>

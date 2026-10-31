@@ -1,0 +1,342 @@
+/* ===================================================
+   ADVOCACY POSTER PAGE: "Make Diesels Great Again"
+   Poster palette: forest #0C1A12 / gold #F2B21B / green #3DDC64
+   =================================================== */
+
+:root {
+  --adv-bg: #0C1A12;
+  --adv-gold: #F2B21B;
+  --adv-green: #3DDC64;
+  --adv-orange: #F0892E;
+  --adv-red: #E53935;
+  --adv-cream: #E6EFD9;
+  --adv-line: #7FB07A;
+}
+
+.adv-poster {
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(242, 178, 27, 0.08) 0%, transparent 70%),
+    var(--adv-bg);
+  color: var(--adv-cream);
+  position: relative;
+  overflow: hidden;
+  padding: 3.5rem 0 4rem;
+}
+.adv-poster::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><text x='20' y='60' font-size='40' font-family='Georgia,serif' fill='%2362d47a'>$</text><text x='90' y='120' font-size='40' font-family='Georgia,serif' fill='%2362d47a'>$</text></svg>");
+}
+.adv-frame {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  border: 3px double var(--adv-line);
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2.5rem);
+  border-radius: 6px;
+}
+.adv-title {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--adv-gold);
+  font-size: clamp(2.4rem, 7.5vw, 5.5rem);
+  line-height: 0.98;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+.adv-subtitle {
+  font-family: var(--font-display), "Oswald", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: var(--adv-cream);
+  font-size: clamp(1rem, 2.6vw, 1.75rem);
+  margin-top: 1.25rem;
+}
+
+/* ---- cycle diagram (desktop: absolute layout over fixed-aspect box) ---- */
+.adv-cycle {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1183 / 880;
+  margin: 2.5rem auto 0;
+}
+.adv-cycle svg.adv-arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.adv-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: #0A1510;
+  border: 2px solid;
+  outline: 2px solid var(--adv-line);
+  outline-offset: 4px;
+  padding: 0.7rem 1.4rem;
+  min-width: 22%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6);
+}
+.adv-node-lead {
+  font-family: var(--font-body), "Inter", sans-serif;
+  font-weight: 700;
+  font-size: clamp(0.7rem, 1.4vw, 1.05rem);
+  color: var(--adv-cream);
+}
+.adv-node-word {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.1rem, 2.9vw, 2.3rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+.adv-node.gold   { border-color: var(--adv-gold);   color: var(--adv-gold); }
+.adv-node.orange { border-color: var(--adv-orange); color: var(--adv-orange); }
+.adv-node.red    { border-color: var(--adv-red);    color: var(--adv-red); }
+.adv-node.green  { border-color: var(--adv-green);  color: var(--adv-green); }
+
+.adv-center {
+  position: absolute;
+  left: 50%;
+  top: 47.7%;
+  transform: translate(-50%, -50%);
+  width: 28%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 0.55em solid var(--adv-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-display), "Oswald", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.1;
+  box-sizing: border-box;
+  font-size: clamp(0.75rem, 2.2vw, 1.8rem);
+}
+.adv-center::after {
+  content: "";
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  top: 50%;
+  height: 0.55em;
+  background: var(--adv-red);
+  transform: rotate(-32deg);
+  transform-origin: center;
+}
+
+.adv-stop-wrap {
+  position: absolute;
+  left: 10.6%;
+  top: 15.3%;
+  transform: translate(-50%, -50%);
+  width: 13%;
+  aspect-ratio: 1;
+  background: #fff;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  padding: 4%;
+  box-sizing: border-box;
+}
+.adv-stop-inner {
+  position: absolute;
+  inset: 4%;
+  background: #D32F2F;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: var(--font-display), "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: clamp(0.75rem, 2.4vw, 1.9rem);
+  letter-spacing: 0.04em;
+}
+.adv-stop-label {
+  position: absolute;
+  left: 4.5%;
+  top: 1%;
+  font-weight: 700;
+  color: var(--adv-cream);
+  font-size: clamp(0.7rem, 1.4vw, 1.05rem);
+}
+
+/* ---- the common-sense outcome box ---- */
+.adv-outcome {
+  margin-top: 1.5rem;
+  border: 3px double var(--adv-green);
+  background: #0A1510;
+  text-align: center;
+  padding: 1.25rem 1rem 1.4rem;
+}
+.adv-outcome-lead {
+  font-weight: 700;
+  color: var(--adv-cream);
+  font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+}
+.adv-outcome-word {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--adv-green);
+  font-size: clamp(1.4rem, 4.6vw, 3.4rem);
+  line-height: 1.05;
+  margin-top: 0.25rem;
+}
+.adv-outcome-nums {
+  font-family: var(--font-display), "Oswald", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: clamp(1.2rem, 3.4vw, 2.5rem);
+  letter-spacing: 0.06em;
+  margin-top: 0.35rem;
+}
+
+/* ---- QR block ---- */
+.adv-qr {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: minmax(160px, 300px) 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.adv-qr img {
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 10px;
+  display: block;
+}
+.adv-qr-scan {
+  font-family: var(--font-display), "Oswald", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--adv-green);
+  font-size: clamp(1.5rem, 4vw, 2.8rem);
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+}
+.adv-qr-links {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: var(--adv-cream);
+  font-size: clamp(0.9rem, 1.8vw, 1.25rem);
+  line-height: 1.7;
+  word-break: break-word;
+}
+.adv-qr-links a { color: inherit; text-decoration: none; }
+.adv-qr-links a:hover { color: var(--adv-gold); }
+
+/* ---- mobile: stack the cycle as a vertical flow ---- */
+.adv-flow { display: none; }
+@media (max-width: 720px) {
+  .adv-cycle { display: none; }
+  .adv-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 2rem;
+  }
+  .adv-flow .adv-node {
+    position: static;
+    transform: none;
+    min-width: 0;
+    outline-offset: 3px;
+    padding: 0.8rem 1rem;
+    margin: 4px 0;
+  }
+  .adv-flow-arrow {
+    text-align: center;
+    color: #fff;
+    font-size: 1.6rem;
+    line-height: 1;
+    padding: 0.55rem 0;
+  }
+  .adv-flow-center {
+    margin: 0.25rem auto;
+    width: 62%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 0.45em solid var(--adv-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    font-family: var(--font-display), "Oswald", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 1.15rem;
+    line-height: 1.1;
+  }
+  .adv-flow-center::after {
+    content: "";
+    position: absolute;
+    left: -6%;
+    right: -6%;
+    top: 50%;
+    height: 0.45em;
+    background: var(--adv-red);
+    transform: rotate(-32deg);
+  }
+  .adv-flow-stop {
+    position: relative;
+    margin: 0.25rem auto;
+    width: 110px;
+    aspect-ratio: 1;
+    background: #fff;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    padding: 5px;
+    box-sizing: border-box;
+  }
+  .adv-flow-stop .adv-stop-inner { inset: 5px; font-size: 1.5rem; }
+  .adv-qr { grid-template-columns: 1fr; text-align: center; }
+  .adv-qr img { max-width: 240px; margin: 0 auto; }
+}
+
+/* ---- explainer sections below the poster ---- */
+.adv-step {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-top: 1px solid rgba(27, 42, 74, 0.18);
+}
+.adv-step-num {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--dfc-oxblood);
+}
+.adv-step h3 {
+  font-family: var(--font-display), "Oswald", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1.5rem;
+  color: var(--dfc-navy);
+}
+.adv-step p {
+  margin-top: 0.6rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 64ch;
+}
+@media (max-width: 640px) {
+  .adv-step { grid-template-columns: 1fr; gap: 0.5rem; }
+  .adv-step-num { font-size: 2.2rem; }
+}
