@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     description:
       "The Laundering of American Regulatory Policy. Position, rule, crime, prison, pardons. This must stop. Common sense regulations: NOx 2.5, PM 0.10.",
     url: "https://dieselfreedomcoalition.org/advocacy",
-    images: [{ url: "/advocacy-poster.png", width: 1183, height: 1900, alt: "Make Diesels Great Again poster" }],
+    images: [{ url: "/advocacy-poster.png", width: 991, height: 1587, alt: "Make Diesels Great Again poster" }],
   },
   twitter: {
     card: "summary_large_image",
