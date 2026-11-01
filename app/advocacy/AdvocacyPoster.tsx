@@ -219,18 +219,23 @@ export default function AdvocacyPoster() {
               </div>
             </div>
 
-            {/* ---- QR ---- */}
-            <div className="adv-qr">
-              <a href={PAGE_URL} aria-label="QR code linking to this page">
-                <img src="/advocacy-qr.png" alt="QR code for dieselfreedomcoalition.org/advocacy" width={800} height={800} />
-              </a>
+            {/* ---- make a change ---- */}
+            <div className="adv-give">
               <div>
-                <div className="adv-qr-scan">Scan to Learn More</div>
-                <div className="adv-qr-links">
-                  <a href={PAGE_URL}>dieselfreedomcoalition.org/advocacy</a>
-                  <br />
-                  <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-                </div>
+                <div className="adv-give-title">Make a Change</div>
+                <p className="adv-give-text">
+                  Breaking this cycle takes lawyers, filings, and time in Washington. The Diesel Freedom
+                  Coalition is funded by the mechanics, farmers, and owner-operators it fights for. Every
+                  dollar goes to replacing the mandate with common sense standards.
+                </p>
+              </div>
+              <div className="adv-give-actions">
+                <a href={DONATE} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ boxShadow: "4px 4px 0 #000" }}>
+                  Donate to the Coalition
+                </a>
+                <a href={`mailto:${EMAIL}`} className="adv-give-email">
+                  {EMAIL}
+                </a>
               </div>
             </div>
           </div>
@@ -341,8 +346,8 @@ export default function AdvocacyPoster() {
           <div className="stars-divider mb-6">★ ★ ★</div>
           <h2 className="section-title">Break the Cycle</h2>
           <p style={{ margin: "1rem auto 0", maxWidth: "58ch", fontSize: "1.1rem", lineHeight: 1.65 }}>
-            Share the poster. Back H.R. 8079, the Diesel Truck Liberation Act. Fund the fight. Every scan
-            of that QR code is one more person who understands how this machine works.
+            Share the poster. Back H.R. 8079, the Diesel Truck Liberation Act. Fund the fight. Every
+            person who sees that poster is one more who understands how this machine works.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap" style={{ marginTop: "2rem" }}>
             <a href={DONATE} target="_blank" rel="noopener noreferrer" className="btn-oxblood">
